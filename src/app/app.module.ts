@@ -8,15 +8,21 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
+import { MenubarModule } from 'primeng/menubar';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
+import { InfoComponent } from './info/info.component';
+import { JuryComponent } from './jury/jury.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    InfoComponent,
+    JuryComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +33,11 @@ import { RegisterComponent } from './register/register.component';
     ButtonModule,
     DropdownModule,
     RadioButtonModule,
-    AccordionModule
+    AccordionModule,
+    MenubarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

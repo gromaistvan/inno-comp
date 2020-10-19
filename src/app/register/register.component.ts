@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 interface Book {
   name: string;
@@ -13,7 +14,7 @@ interface Book {
 export class RegisterComponent implements OnInit {
   books: Book[];
   selectedBook: string;
-
+  items: MenuItem[];
   constructor() {
     this.books = [
       { name: 'Book1', author: 'Author1' },
@@ -22,7 +23,6 @@ export class RegisterComponent implements OnInit {
       { name: 'Book4', author: 'Author4' },
       { name: 'Book5', author: 'Author5' }];
   }
-
   ngOnInit(): void {
   }
 }
