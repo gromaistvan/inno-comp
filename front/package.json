@@ -1,6 +1,14 @@
 {
-  "name": "inno-comp",
-  "version": "0.0.0",
+  "name": "inno-comp-front",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Groma István <wavezone@mrginfo.com>",
+  "description": "Innovációs Ösztöndíj 2020",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gromaistvan/inno-comp.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,10 +17,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~9.1.12",
-    "@angular/cdk": "^10.2.2",
+    "@angular/cdk": "^10.2.5",
     "@angular/common": "~9.1.12",
     "@angular/compiler": "~9.1.12",
     "@angular/core": "~9.1.12",
@@ -23,18 +30,18 @@
     "font-awesome": "^4.7.0",
     "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",
-    "primeng": "^10.0.0",
+    "primeng": "^10.0.3",
     "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
+    "tslib": "^2.0.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.12",
     "@angular/cli": "~9.1.12",
     "@angular/compiler-cli": "~9.1.12",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^14.14.2",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -44,8 +51,8 @@
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "protractor": "~7.0.0",
-    "ts-node": "~8.3.0",
+    "ts-node": "^9.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "^4.0.3"
   }
 }
