@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { UnderConstruction } from '../under-construction';
 
 @Component({
   selector: 'app-jury',
   templateUrl: './jury.component.html',
   styleUrls: ['./jury.component.css']
 })
-export class JuryComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class JuryComponent extends UnderConstruction {
 }

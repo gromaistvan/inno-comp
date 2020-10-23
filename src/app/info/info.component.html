@@ -1,58 +1,55 @@
-<div class="p-component">
-<p-card header="Mi a meghirdetett ösztöndíj célja?" styleClass="p-m-3">
+<p-card header="Mi a meghirdetett ösztöndíj célja?" styleClass="p-m-4 p-shadow-24">
   Az Innovációs Ösztöndíj 2020 célja, hogy külön motiválja a cégcsoport dolgozóit abban, hogy proaktív módon
   járuljanak hozzá belső folyamataink és szállított termékeink korszerű megoldások irányába történő fejlődéséhez.
 </p-card>
 
-<p-card header="Kik vehetnek benne részt?" styleClass="p-m-3">
+<p-card header="Kik vehetnek benne részt?" styleClass="p-m-4 p-shadow-24">
   <a href="/">Mindenki</a> jelentkezhet, aki a cégcsoport valamelyik leánycégének az
   alkalmazásában áll. Pályázni lehet egyéniben és csapatban, viszont nincs külön kategória.
 </p-card>
 
 
-<p-card header="Mi a feltétele?" styleClass="p-m-3 p-shadow-24">
+<p-card header="Mi a feltétele?" styleClass="p-m-4 p-shadow-24">
   A pályázás feltétele, hogy a '20-es év során dolgozz ki és valósíts meg valamilyen előremutató újítást a cégcsoport
   egyik termékéhez kapcsoltan vagy egy belső folyamatok tekintetében. A lényeg, hogy alulról jövő kezdeményezés legyen és részben vagy
   egészben valósuljon is meg.
 </p-card>
 
-
-<p-card header="Hogyan pályázhatok rá?" styleClass="p-m-3 p-shadow-24">
-  Az alábbi határidőig <a href="/register">nyújts be</a> egy cirka 1. oldalas leírást a hozzád köthető céges innováció
-  lényegéről (mi motivált, hogyan valósult meg,
-  milyen eredmények születtek stb.). A leíráson túl szükség lesz egy 15 perces demó prezentáció összeállítására is.
+<p-card header="Hogyan pályázhatok rá?" styleClass="p-m-4 p-shadow-24">
+  Az alábbi határidőig <a href="/signup">nyújts be</a> egy cirka 1. oldalas leírást a hozzád köthető innováció
+  lényegéről (mi motivált, hogyan valósult meg, milyen eredmények születtek stb.). A leíráson túl szükség lesz egy 15 perces demó prezentáció összeállítására is.
 </p-card>
 
-<p-card header="Menetrend" styleClass="p-card-shadow p-m-5 p-shadow-24">
-  <p-accordion [multiple]="true">
-    <p-accordionTab header="Pályázati szakasz" [selected]="true">
-      <h4>2020. november 27. éjfél</h4>
-      Készítsétek el minél többen a pályázati anyagotokat és töltsétek fel a <a href="/SignUp">Regisztráció</a> menüpont alatt!
-    </p-accordionTab>
-    <p-accordionTab header="Beszámolók" [selected]="true">
-      <h4>2020. december 4. 15:00-19:00 | Helyszín: Hauszmann Alajos u. 3/B. | -1. szinti étterem</h4>
-      A zsűri előtti beszámolókat a pályázók előre kihirdetett <a href="/Schedule">sorrendben</a>, egymás után tartják meg.
-      15 perc diás prezentáció, utána még 10 percben a zsűri kérdéseire kell válaszolni.
-    </p-accordionTab>
-    <p-accordionTab header="Eredményhirdetés" s [selected]="true">
-      <h4>Évzáró karácsonyi rendezvény</h4>
-      A zsűri értékelése alapján kihirdetjük a győztest!
-    </p-accordionTab>
-  </p-accordion>
-
-
-
+<p-card header="Menetrend" styleClass="p-m-4 p-shadow-24">
+  <dl>
+    <dt class="p-text-bold">Pályázati szakasz | 2020. november 27. éjfél</dt>
+    <dd>
+      <p>Készítsétek el minél többen a pályázati anyagotokat és töltsétek fel a <a routerLink="/signup">Regisztráció</a> menüpont alatt!</p>
+    </dd>
+    <dt class="p-text-bold">Beszámolók | 2020. december 4. 15:00-19:00</dt>
+    <dd>
+      <p>
+        A zsűri előtti beszámolókat a pályázók előre kihirdetett <a routerLink="/schedule">sorrendben</a>, egymás után tartják meg.
+        15 perc diás prezentáció, utána még 10 percben a zsűri kérdéseire kell válaszolni.
+        <span class="p-text-bold">
+          Helyszín: Hauszmann Alajos u. 3/B. étterem.
+        </span>
+      </p>
+    </dd>
+    <dt class="p-text-bold">Eredményhirdetés | Évzáró karácsonyi rendezvény</dt>
+    <dd>
+      <p>
+        A zsűri értékelése alapján kihirdetjük a győztest!
+      </p>
+    </dd>
+  </dl>
 </p-card>
 
-<p-card header="Hogyan zajlik az értékelés?" styleClass="p-m-5">
- <p>
-   Az értékelést egy külsős szakemberekből álló <a class="p-link" href="/jury">zsűri</a> hajtja végre, akik a bemutatott prezentációk és hozzá kapcsolódóan feltett
+<p-card header="Hogyan zajlik az értékelés?" styleClass="p-m-4 p-shadow-24">
+   Az értékelést egy külsős szakemberekből álló <a routerLink="/jury">zsűri</a> hajtja végre, akik a bemutatott prezentációk és hozzá kapcsolódóan feltett
    kérdéseik alapján pontozzák a pályázók munkáit. A legtöbb pontot szerző pályázó megnyeri az erre a célra elkülönített 1 000 000 Ft-os díjat.
-  </p>
 </p-card>
 
-<p-card header="Kérdésed van?" styleClass="p-m-5">
-  Kérdéseidet elküldheted a <a href="mailto:groma.istvan@sdadms.hu?subject=Innovációs ösztöndíj 2020">groma.istvan@sdadms.hu</a> e-mail címre.
+<p-card header="Kérdésed van?" styleClass="p-m-4 p-shadow-24">
+    Kérdéseidet elküldheted a <a href="mailto:groma.istvan@sdadms.hu?subject=Innovációs ösztöndíj 2020">groma.istvan@sdadms.hu</a> e-mail címre.
 </p-card>
-
-</div>
