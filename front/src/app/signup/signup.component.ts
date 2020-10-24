@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Company } from '../company';
+import { Company, Applicant } from '../models';
+
+interface FileDecriptor {
+  is: string;
+}
+
 
 @Component({
   selector: 'app-signup',
@@ -14,8 +19,8 @@ export class SignupComponent {
   title: string;
   company: Company;
   companies: Company[];
-  private presentation: File|null = null;
-  private abstract: File|null = null;
+  private presentation: File | null = null;
+  private abstract: File | null = null;
 
   constructor(private http: HttpClient) {
     this.companies = [
@@ -29,22 +34,26 @@ export class SignupComponent {
       { name: 'Webjogsi KMR Autósiskola Zrt.', ceo: 'Dr. Szőcs Károly' }];
   }
 
-  async mysubmit(): Promise<void> {
-    if (this.presentation) {
-      const buf = await this.presentation.arrayBuffer();
-      console.log(buf.byteLength);
-    }
-    if (this.abstract) {
-      const buf = await this.abstract.arrayBuffer();
-      console.log(buf.byteLength);
-    }
-    const headers = new HttpHeaders().append('Content-Type', 'multipart/form-data');
+  async upload(file: File|null): Promise<string|null> {
+    if (! file) return null;
     const formData: FormData = new FormData();
-    formData.append('presentation', this.presentation, this.presentation.name);
-    const response: HttpResponse<object> = await this.http
-      .post('https://example.com/avatar', formData, { headers, observe: 'response' })
-      .toPromise();
-    console.log(response.status);
+    formData.append('file', file, file.name);
+    const result: any = await this.http.post('/api/upload', formData).toPromise();
+    return `${result.id}`;
+  }
+
+  async onSubmit(): Promise<void> {
+    const applicant: Applicant = {
+      name: this.name,
+      email: this.email,
+      title: this.title,
+      phone: this.phone,
+      company: this.company,
+      abstract: await this.upload(this.abstract),
+      presentation: await this.upload(this.presentation),
+    };
+    const result: Applicant = await this.http.post<Applicant>('/api/applicant', applicant).toPromise();
+    console.log(result);
   }
 
   onAbstract(event: any): void {

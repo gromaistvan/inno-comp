@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UnderConstruction } from '../under-construction';
+import { UnderConstruction } from '../under.construction';
 
 @Component({
   selector: 'app-schedule',
