@@ -1,70 +1,97 @@
-<div class="p-fluid p-m-4">
-  <div class="p-field p-md-8">
-    <div class="p-inputgroup">
-      <span class="p-float-label">
-        <input type="text" pInputText [(ngModel)]="name" />
-        <label for="float-input">Neved vagy csapat neve</label>
-      </span>
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-      </span>
+<form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+  <div class="p-fluid p-m-4">
+    <div class="p-field p-md-8">
+      <div class="p-inputgroup">
+        <span class="p-float-label">
+          <input name="name" id="name" type="text" pInputText [(ngModel)]="name" #nameModel="ngModel" required minlength="5" unique />
+          <label for="name">Neved vagy csapatod neve</label>
+        </span>
+        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+      </div>
+      <div *ngIf="nameModel.invalid && (nameModel.dirty || nameModel.touched)">
+        <small *ngIf="nameModel.errors?.required" class="p-invalid">A név megadása kötelező!</small>
+        <small *ngIf="nameModel.errors?.minlength" class="p-invalid">A név legalább 5 karakter legyen!</small>
+        <small *ngIf="nameModel.errors?.used" class="p-invalid">Ezt a nevet már más használja!</small>
+      </div>
     </div>
-    <small id="username-help">Enter your username to reset your password.</small>
-  </div>
-  <div class="p-field p-md-8">
-    <div class="p-inputgroup">
+    <div class="p-field p-md-8">
+      <div class="p-inputgroup">
+        <span class="p-float-label">
+          <input name="email" id="email" type="email" pInputText [(ngModel)]="email" #emailModel="ngModel" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" />
+          <label for="email">E-mail címed</label>
+        </span>
+        <span class="p-inputgroup-addon">@</span>
+      </div>
+      <div *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
+        <small *ngIf="emailModel.errors?.required" class="p-invalid">Az e-mail cím megadása kötelező!</small>
+        <small *ngIf="emailModel.errors?.pattern" class="p-invalid">Az e-mail cím formátuma nem megfelelő (nev@tartomany.hu)!</small>
+      </div>
+    </div>
+    <div class="p-field p-md-8">
+      <div class="p-inputgroup">
+        <span class="p-float-label">
+          <input name="phone" id="phone" type="tel" pInputText [(ngModel)]="phone" #phoneModel="ngModel" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" />
+          <label for="float-input">Telefonszámod</label>
+        </span>
+        <span class="p-inputgroup-addon"><i class="pi pi-mobile"></i></span>
+      </div>
+      <div *ngIf="phoneModel.invalid && (phoneModel.dirty || phoneModel.touched)">
+        <small *ngIf="phoneModel.errors?.pattern" class="p-invalid">A telefonszám formátuma nem megfelelő (+36 70 12345678)!</small>
+      </div>
+    </div>
+    <div class="p-field p-md-8">
       <span class="p-float-label">
-        <input type="email" pInputText [(ngModel)]="email" />
-        <label for="float-input">E-mail cím</label>
+        <p-dropdown name="company" inputId="company" [options]="companies" [autoDisplayFirst]="false" [(ngModel)]="company"
+          optionLabel="name" #companyModel="ngModel" [style]="{'width':'100%'}" required></p-dropdown>
+        <label for="company">Foglalkoztató cég</label>
       </span>
-      <span class="p-inputgroup-addon">
-        @
-      </span>
+      <div *ngIf="companyModel.invalid && (companyModel.dirty || companyModel.touched)">
+        <small *ngIf="companyModel.errors?.required" class="p-invalid">A cég kiválasztása kötelező!</small>
+      </div>
+    </div>
+    <div class="p-field p-md-8">
+      <div class="p-inputgroup">
+        <span class="p-float-label">
+          <input name="title" inputId="title" type="text" pInputText [(ngModel)]="title" #titleModel="ngModel" required minlength="10" />
+          <label for="title">A pályázat címe</label>
+        </span>
+        <span class="p-inputgroup-addon"><i class="pi pi-comment"></i></span>
+      </div>
+      <div *ngIf="titleModel.invalid && (titleModel.dirty || titleModel.touched)">
+        <small *ngIf="titleModel.errors?.required" class="p-invalid">A cím megadása kötelező!</small>
+        <small *ngIf="titleModel.errors?.minlength" class="p-invalid">A cím legalább 10 karakter legyen!</small>
+      </div>
+    </div>
+    <div class="p-field p-md-8">
+      <div class="p-inputgroup">
+        <span class="p-float-label">
+          <input inputId="abstract-name" pInputText type="text" class="p-text-uppercase" [value]="abstractControl?.value" readonly [disabled]="true" />
+          <label for="abstract-name">~1 oldalas rövid összefoglaló</label>
+        </span>
+        <button pButton type="button" label="Kiválaszt&nbsp;" icon="pi pi-pencil" class="p-button" (click)="abstractControl.click()"></button>
+      </div>
+      <div *ngIf="abstractModel.invalid && (abstractModel.dirty || abstractModel.touched)">
+        <small *ngIf="abstractModel.errors?.required" class="p-invalid">A rövid összefoglaló feltöltése kötelező!</small>
+      </div>
+      <input name="abstract" id="abstract" type="file" observeFiles [(ngModel)]="abstract" #abstractControl #abstractModel="ngModel"
+              accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple="false" required style="display: none" />
+    </div>
+    <div class="p-field p-md-8">
+      <div class="p-inputgroup">
+        <span class="p-float-label">
+          <input inputId="presentation-name" pInputText type="text" class="p-text-uppercase" [value]="presentationControl?.value" readonly [disabled]="true" />
+          <label for="presentation-name">~15 perces prezentáció</label>
+        </span>
+        <button pButton type="button" label="Kiválaszt&nbsp;" icon="pi pi-eye" class="p-button" (click)="presentationControl.click()"></button>
+      </div>
+      <div *ngIf="presentationModel.invalid && (presentationModel.dirty || presentationModel.touched)">
+        <small *ngIf="presentationModel.errors?.required" class="p-invalid">A prezentáció feltöltése kötelező!</small>
+      </div>
+      <input name="presentation" id="presentation" type="file" observeFiles [(ngModel)]="presentation" #presentationControl #presentationModel="ngModel"
+             accept="application/vnd.openxmlformats-officedocument.presentationml.presentation" multiple="false" required style="display: none" />
+    </div>
+    <div class="p-field p-md-8">
+      <button pButton type="submit" label="Regisztráció" [disabled]="! signupForm.form.valid"></button>
     </div>
   </div>
-  <div class="p-field p-md-8">
-    <div class="p-inputgroup">
-      <span class="p-float-label">
-        <input type="tel" pInputText [(ngModel)]="phone" />
-        <label for="float-input">Telefonszám</label>
-      </span>
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-mobile"></i>
-      </span>
-    </div>
-  </div>
-  <div class="p-field p-md-8">
-    <span class="p-float-label">
-      <p-dropdown inputId="company" [options]="companies" [autoDisplayFirst]="false" [(ngModel)]="company" optionLabel="name" [style]="{'width':'100%'}"></p-dropdown>
-      <label for="company">Cég</label>
-    </span>
-  </div>
-  <div class="p-field p-md-8">
-  <div class="p-inputgroup">
-      <span class="p-float-label">
-      <input inputId="title" type="text" pInputText [(ngModel)]="title" />
-      <label for="title">A pályázat címe</label>
-    </span>
-    <span class="p-inputgroup-addon">
-      <i class="pi pi-comment"></i>
-    </span>
-  </div>
-  </div>
-  <div class="p-field p-md-8">
-      <p-fileUpload name="abstract[]" mode="basic" fileLimit="1"
-                    auto="true" customUpload="true" (uploadHandler)="onAbstract($event)"
-                    accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    chooseLabel="~1 oldalas rövid leírás">
-      </p-fileUpload>
-  </div>
-  <div class="p-field p-md-8">
-      <p-fileUpload name="presentation[]" mode="basic" fileLimit="1"
-                    auto="true" customUpload="true" (uploadHandler)="onPresentation($event)"
-                    accept="application/vnd.openxmlformats-officedocument.presentationml.presentation"
-                    chooseLabel="15 perces prezentáció">
-      </p-fileUpload>
-  </div>
-  <div class="p-field p-md-8">
-    <button pButton type="button" label="Regisztráció" (click)="onSubmit()"></button>
-  </div>
-</div>
+</form>

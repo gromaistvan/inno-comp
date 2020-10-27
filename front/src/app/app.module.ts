@@ -25,6 +25,8 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { RecordingsComponent } from './recordings/recordings.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { SignupComponent } from './signup/signup.component';
+import { UniqueNameDirective } from './shared/unique-name.directive';
+import { FileInputValueAccessorDirective } from './shared/file-input.accessor.directive';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { SignupComponent } from './signup/signup.component';
     ScheduleComponent,
     RecordingsComponent,
     ApplicantsComponent,
-    SignupComponent
+    SignupComponent,
+    UniqueNameDirective,
+    FileInputValueAccessorDirective
   ],
   imports: [
     HttpClientModule,
@@ -55,8 +59,11 @@ import { SignupComponent } from './signup/signup.component';
     InputMaskModule,
     FileUploadModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {
 }
