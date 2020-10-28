@@ -3,6 +3,11 @@
   padding: 1rem;
 }
 
+.logo {
+  width: 200px;
+  vertical-align: middle;
+}
+
 body {
   background-color: lightsteelblue;
 }
