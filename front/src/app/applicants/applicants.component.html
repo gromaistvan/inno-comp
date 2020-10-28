@@ -1,1 +1,28 @@
-<p>applicants works!</p>
+<img src="assets/sda.png" width="10" />
+<img src="assets/elms.png" width="10" />
+<img src="assets/educatio.png" width="10" />
+<p-card *ngFor="let applicant of applicants" styleClass="p-m-4 p-shadow-24">
+  <ng-template pTemplate="body">
+    <div class="p-card-title">
+      {{applicant.name}}
+    </div>
+    <div class="p-card-subtitle">
+      <a [href]="'mailto:' + applicant.email" style="color: inherit">{{applicant.email}}</a>
+    </div>
+    <div class="p-text-center">
+      <h1>{{applicant.title}}</h1>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <span [ngSwitch]="applicant.company?.name">
+      <img *ngSwitchCase="'SDA DMS Zrt.'" src="assets/sda.png" [alt]="applicant.company?.name" width="100" style="vertical-align:middle" />
+      <img *ngSwitchCase="'ELMS Informatikai Zrt.'" src="assets/elms.png" [alt]="applicant.company?.name" width="100" style="vertical-align:middle" />
+      <img *ngSwitchCase="'E-Educatio Információtechnológia Zrt.'" src="assets/educatio.png" [alt]="applicant.company?.name" width="100" style="vertical-align:middle" />
+      <img *ngSwitchCase="'eKRÉTA Informatikai Zrt.'" src="assets/ekreta.png" [alt]="applicant.company?.name" width="100" style="vertical-align:middle" />
+
+    </span>
+
+    <span>{{applicant.company?.name}}</span>
+  </ng-template>
+</p-card>
+

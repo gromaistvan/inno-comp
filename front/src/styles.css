@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+.p-card .p-card-body {
+  padding: 1rem;
+}
+
+body {
+  background-color: lightsteelblue;
+}
