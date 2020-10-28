@@ -13,7 +13,6 @@ git pull
 git stash drop
 
 # mongo
-apt-get update
 if [ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]; then
   apt-get install -y gnupg wget
   wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
@@ -44,7 +43,7 @@ if [ ! -f nodesource_setup.sh ]; then
   ./nodesource_setup.sh
 fi
 apt-get install -y nodejs build-essential
-npm install -g npm@latest webpack-cli@latest
+npm install -g npm@latest webpack@latest webpack-cli@latest
 pushd back
 npm install
 npm run build
