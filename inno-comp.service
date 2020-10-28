@@ -1,0 +1,15 @@
+[Unit]
+Description="Innovációs Ösztöndíj 2020"
+
+[Service]
+ExecStart=/usr/bin/node server.bundle.js
+WorkingDirectory=#DIRECTORY#/back
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=InnoComp2020
+Environment=NODE_ENV=production PORT=8080
+
+[Install]
+WantedBy=multi-user.target

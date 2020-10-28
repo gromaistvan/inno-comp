@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# sudo
+if [[ $UID != 0 ]]; then
+  echo "Please run this script with sudo:"
+  echo "sudo $0 $*"
+  exit 1
+fi
+
+# git
+git stash
+git pull
+git stash drop
+
+# mongo
+apt-get update
+if [ ! -f "/etc/apt/sources.list.d/mongodb-org-4.4.list"]; then
+  apt-get install -y gnupg
+  wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
+  UBUNTU_VERISON=$(cat /etc/os-release | awk -F '=' '/^VERSION_ID/{print $2}' | awk '{print $1}' | tr -d '"')
+  echo "Ubuntu $UBUNTU_VERISON"
+  case $UBUNTU_VERISON in
+    "20.04")
+      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+      ;;
+    "18.04")
+      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+      ;;
+    "16.04")
+      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+      ;;
+  esac
+  apt-get update
+fi
+apt-get install -y mongodb-org
+systemctl enable mongod
+systemctl start mongod
+
+
+# node
+apt-get install -y nodejs npm
+pushd back
+npm install
+npm run build
+popd
+pushd front
+npm install
+npm run build
+popd
+
+# inno-comp
+systemctl stop inno-comp.service
+systemctl disable inno-comp.service
+sed -i "s/#DIRECTORY#/$PWD/" inno-comp.service
+systemctl enable inno-comp.service
+systemctl start inno-comp.service
