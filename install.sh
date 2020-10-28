@@ -15,7 +15,7 @@ git stash drop
 # mongo
 apt-get update
 if [ ! -f "/etc/apt/sources.list.d/mongodb-org-4.4.list"]; then
-  apt-get install -y gnupg
+  apt-get install -y gnupg wget
   wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
   UBUNTU_VERISON=$(cat /etc/os-release | awk -F '=' '/^VERSION_ID/{print $2}' | awk '{print $1}' | tr -d '"')
   echo "Ubuntu $UBUNTU_VERISON"
@@ -33,12 +33,18 @@ if [ ! -f "/etc/apt/sources.list.d/mongodb-org-4.4.list"]; then
   apt-get update
 fi
 apt-get install -y mongodb-org
+
 systemctl enable mongod
 systemctl start mongod
 
 
 # node
-apt-get install -y nodejs npm
+apt-get install -y curl build-essential
+curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+chmod +x nodesource_setup.sh
+./nodesource_setup.sh
+apt-get install -y nodejs
+npm install -g npm@latest
 pushd back
 npm install
 npm run build
