@@ -44,7 +44,7 @@ if [ ! -f nodesource_setup.sh ]; then
   ./nodesource_setup.sh
 fi
 apt-get install -y nodejs build-essential
-npm install -g npm@latest
+npm install -g npm@latest webpack-cli@latest
 pushd back
 npm install
 npm run build
