@@ -9,7 +9,6 @@
     "type": "git",
     "url": "https://github.com/gromaistvan/inno-comp.git"
   },
-  "main": "server.js",
   "scripts": {
     "start": "node server.bundle.js",
     "build": "webpack",

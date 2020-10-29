@@ -6,7 +6,7 @@ AssertPathExists=$DIRECTORY/back
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/node server.bundle.js
+ExecStart=/usr/bin/npm start
 WorkingDirectory=$DIRECTORY/back
 Restart=always
 RestartSec=60
