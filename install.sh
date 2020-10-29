@@ -57,5 +57,5 @@ popd
 systemctl stop inno-comp.service
 systemctl disable inno-comp.service
 sed -i "s/\$DIRECTORY/$(pwd | sed 's/\//\\\//g')/g" inno-comp.service
-systemctl enable inno-comp.service
+systemctl enable $PWD/inno-comp.service
 systemctl start inno-comp.service
