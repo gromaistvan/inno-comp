@@ -3,8 +3,8 @@ const mongo = require('mongodb');
 const express = require('express');
 const bodyParser = require("body-parser");
 const multer = require('multer');
-const nodemailer = require("nodemailer");
-const { IgnorePlugin } = require('webpack');
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
 
 const port = process.env.PORT || 80;
 
@@ -64,7 +64,7 @@ app.get('/api/applicant', async (_req, res) => {
   }
 });
 
-const transporter = process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD
+const smtp = process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD
   ? nodemailer.createTransport(smtpTransport({
       service: 'gmail',
       host: 'smtp.gmail.com',
@@ -77,17 +77,16 @@ app.post('/api/applicant', async (req, res) => {
   try {
     await client.connect();
     const result = await client.db('inno-comp').collection('applicants').insertOne(req.body);
-    if (transporter) {
-      await transporter.sendMail({
-        from: transporter.auth.user,
-        to: registry.body.email,
+    if (smtp) {
+      await smtp.sendMail({
+        from: smtp.transporter.options.auth.user,
+        to: req.body.email,
         subject: '💡 Innovációs ösztöndíj 2020 - Regisztráció',
         priority: 'high',
-        text: `
-Kedves ${req.body.name}!
-
-Gratulálunk, sikeresen regisztráltál az Innovációs ösztöndíj 2020 pályázatra.
-
+        html: `
+<h1>Kedves ${req.body.name}!</h1>
+<p>Gratulálunk, sikeresen regisztráltál az <a href="http://innovacio20.rcinet.local">Innovációs ösztöndíj 2020</a> pályázatra!</p>
+<pre>
             _____
            /     \
           /       \
@@ -98,11 +97,9 @@ Gratulálunk, sikeresen regisztráltál az Innovációs ösztöndíj 2020 pály�
             |===|
             |===|
              ###
-
-http://innovacio20.rcinet.local
-
-------------------------------
-Erre az e-mailre ne válaszolj!
+</pre>
+<hr>
+<p>Erre az e-mailre ne válaszolj!</p>
 `.trim()
       });
     }

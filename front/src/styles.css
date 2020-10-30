@@ -1,7 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+/* PrimeNG */
+
 .p-card .p-card-body {
   padding: 1rem;
 }
+
+.p-menuitem-link-active {
+  font-weight: bold;
+  font-size: large;
+}
+
+/* Common */
 
 .logo {
   width: 200px;
@@ -9,10 +17,9 @@
 }
 
 body {
-  background-color: lightsteelblue;
+  background-color: dimgray;
 }
 
-.p-menuitem-link-active {
-  font-weight: bold;
-  font-size: large;
+a {
+  color: inherit;
 }

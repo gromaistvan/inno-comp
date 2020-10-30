@@ -1,49 +1,42 @@
 #!/bin/bash
 
-is_sudo () {
+init() {
   if [[ $UID != 0 ]]; then
-    echo "Please run this script with sudo:"
+    echo "Please run this script with sudo!"
     echo "sudo $0 $*"
     exit 1
   fi
+  [[ -f /usr/bin/figlet ]] || apt-get install -y figlet
 }
 
-download () {
-  echo "Downloading source"
+download() {
+  figlet "Downloading"
   git stash
   git pull
   git stash drop
 }
 
 mongo() {
-  [ -f /usr/bin/mongo ] && return
-  echo "Intalling MongoDB"
-  if [ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]; then
-    [ -f /usr/share/doc/gnupg ] || apt-get install -y gnupg
-    [ -f /usr/bin/wget ] || apt-get install -y wget
-    wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-    case $(cat /etc/os-release | awk -F '=' '/^VERSION_ID/{print $2}' | awk '{print $1}' | tr -d '"') in
-      "20.04")
-        echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-        ;;
-      "18.04")
-        echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-        ;;
-      "16.04")
-        echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-        ;;
-    esac
-    apt-get update
+  if [[ ! -f /usr/bin/mongo ]]; then
+    figlet "MongoDB"
+    if [[ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]]; then
+      [[ -f /usr/share/doc/gnupg ]] || apt-get install -y gnupg
+      [[ -f /usr/bin/wget ]] || apt-get install -y wget
+      wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
+      . /etc/os-release
+      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $VERSION_CODENAME/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+      apt-get update
+    fi
+    apt-get install -y mongodb-org
+    systemctl enable mongod
+    systemctl start mongod
   fi
-  apt-get install -y mongodb-org
-  systemctl enable mongod
-  systemctl start mongod
 }
 
 node() {
-  echo "Intalling Node.js"
-  if [ ! -f /usr/bin/node ]; then
-    if [ ! -f nodesource_setup.sh ]; then
+  figlet "Node.js"
+  if [[ ! -f /usr/bin/node ]]; then
+    if [[ ! -f nodesource_setup.sh ]]; then
       apt-get install -y curl
       curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
       chmod +x nodesource_setup.sh
@@ -51,10 +44,12 @@ node() {
     fi
     apt-get install -y nodejs
   fi
-  if [ ! -f /usr/bin/gcc ]; then
-    apt-get install -y build-essential
-  fi
+  [[ -f /usr/bin/gcc ]] || apt-get install -y build-essential
   npm install -g npm@latest webpack@latest webpack-cli@latest
+}
+
+application() {
+  figlet "inno-comp"
   pushd back
   npm install
   npm run build
@@ -63,16 +58,12 @@ node() {
   npm install
   npm run build
   popd
-}
-
-application() {
-  echo "Intalling inno-comp"
-  if [ ! -f ./inno-comp.service ]; then
+  if [[ ! -f ./inno-comp.service ]]; then
     echo -n "Email: "
     read GMAIL_ADDRESS
     echo -n "Password: "
     read GMAIL_PASSWORD
-    cat <<EOT >inno-comp.service
+    cat >inno-comp.service <<EOT
 [Unit]
 Description=Innovációs Ösztöndíj 2020
 After=network.target mongod.service
@@ -98,7 +89,7 @@ EOT
   systemctl status inno-comp.service --no-pager -l
 }
 
-is_sudo
+init
 download
 mongo
 node

@@ -4,7 +4,7 @@
       {{applicant.name}}
     </div>
     <div class="p-card-subtitle">
-      <a [href]="'mailto:' + applicant.email" style="color: inherit">{{applicant.email}}</a>
+      <a [href]="'mailto:' + applicant.email">{{applicant.email}}</a>
     </div>
     <div class="p-text-center">
       <h1>{{applicant.title}}</h1>
@@ -12,10 +12,14 @@
   </ng-template>
   <ng-template pTemplate="footer">
     <span [ngSwitch]="applicant.company?.name">
-      <img *ngSwitchCase="'SDA DMS Zrt.'" src="assets/sda.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'ELMS Informatikai Zrt.'" src="assets/elms.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'E-Educatio Információtechnológia Zrt.'" src="assets/educatio.png" [alt]="applicant.company?.name" class="logo" />
+      <img *ngSwitchCase="'E-Educatio Információtechnológia Zrt.'" src="assets/sda.png" [alt]="applicant.company?.name" class="logo" />
       <img *ngSwitchCase="'eKRÉTA Informatikai Zrt.'" src="assets/ekreta.png" [alt]="applicant.company?.name" class="logo" />
+      <img *ngSwitchCase="'ELMS Informatikai Zrt.'" src="assets/elms.png" [alt]="applicant.company?.name" class="logo" />
+      <img *ngSwitchCase="'Max & Future Kft.'" src="assets/Max.png" [alt]="applicant.company?.name" class="logo" />
+      <img *ngSwitchCase="'Rufusz Computer Informatika Zrt.'" src="assets/rufusz.png" [alt]="applicant.company?.name" class="logo" />
+      <img *ngSwitchCase="'SDA DMS Zrt.'" src="assets/dms.png" [alt]="applicant.company?.name" class="logo" />
+      <img *ngSwitchCase="'SDA Informatika Zrt.'" src="assets/sda.png" [alt]="applicant.company?.name" class="logo" />
+      <img *ngSwitchCase="'Webjogsi KMR Autósiskola Zrt.'" src="assets/webjogsi.png" [alt]="applicant.company?.name" class="logo" />
     </span>
     <span>{{applicant.company?.name}}</span>
   </ng-template>

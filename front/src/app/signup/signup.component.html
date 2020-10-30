@@ -6,7 +6,12 @@
           <input name="name" id="name" type="text" pInputText [(ngModel)]="name" #nameModel="ngModel" required minlength="5" appUnique />
           <label for="name">Neved vagy csapatod neve</label>
         </span>
-        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-star" style="color: red"></i>
+        </span>
       </div>
       <div *ngIf="nameModel.invalid && (nameModel.dirty || nameModel.touched)" class="p-px-3">
         <small *ngIf="nameModel.errors?.required" class="p-invalid">A név megadása kötelező!</small>
@@ -21,6 +26,9 @@
           <label for="email">E-mail címed</label>
         </span>
         <span class="p-inputgroup-addon">@</span>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-star" style="color: red"></i>
+        </span>
       </div>
       <div *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)" class="p-px-3">
         <small *ngIf="emailModel.errors?.required" class="p-invalid">Az e-mail cím megadása kötelező!</small>
@@ -42,11 +50,16 @@
       </div>
     </div>
     <div class="p-field p-py-2">
-      <span class="p-float-label">
-        <p-dropdown name="company" inputId="company" [options]="companies" [autoDisplayFirst]="false" [(ngModel)]="company"
-          optionLabel="name" #companyModel="ngModel" [style]="{'width':'100%'}" required></p-dropdown>
-        <label for="company">Foglalkoztató cég</label>
-      </span>
+      <div class="p-inputgroup">
+        <span class="p-float-label" >
+          <p-dropdown name="company" inputId="company" [options]="companies" [autoDisplayFirst]="false" [(ngModel)]="company"
+                      optionLabel="name" #companyModel="ngModel" style="width: 100%" required></p-dropdown>
+          <label for="company">Foglalkoztató cég</label>
+        </span>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-star" style="color: red"></i>
+        </span>
+      </div>
       <div *ngIf="companyModel.invalid && (companyModel.dirty || companyModel.touched)" class="p-px-3">
         <small *ngIf="companyModel.errors?.required" class="p-invalid">A cég kiválasztása kötelező!</small>
       </div>
@@ -57,7 +70,12 @@
           <input name="title" inputId="title" type="text" pInputText [(ngModel)]="title" #titleModel="ngModel" required minlength="10" />
           <label for="title">A pályázat címe</label>
         </span>
-        <span class="p-inputgroup-addon"><i class="pi pi-comment"></i></span>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-comment"></i>
+        </span>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-star" style="color: red"></i>
+        </span>
       </div>
       <div *ngIf="titleModel.invalid && (titleModel.dirty || titleModel.touched)" class="p-px-3">
         <small *ngIf="titleModel.errors?.required" class="p-invalid">A cím megadása kötelező!</small>
@@ -70,7 +88,10 @@
           <input inputId="abstract-name" pInputText type="text" class="p-text-uppercase" [value]="abstractControl?.value" tabindex="-1" readonly />
           <label for="abstract-name">~1 oldalas rövid összefoglaló</label>
         </span>
-        <button pButton type="button" label="Kiválaszt&nbsp;" icon="pi pi-pencil" class="p-button" (click)="abstractControl.click()"></button>
+        <button pButton type="button" label="Kiválaszt..." icon="pi pi-pencil" class="p-button p-px-4" (click)="abstractControl.click()"></button>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-star" style="color: red"></i>
+        </span>
       </div>
       <div *ngIf="abstractModel.invalid && (abstractModel.dirty || abstractModel.touched)" class="p-px-3">
         <small *ngIf="abstractModel.errors?.required" class="p-invalid">A rövid összefoglaló feltöltése kötelező!</small>
@@ -86,7 +107,11 @@
           <input inputId="presentation-name" pInputText type="text" class="p-text-uppercase" [value]="presentationControl?.value" tabindex="-1" readonly />
           <label for="presentation-name">~15 perces prezentáció</label>
         </span>
-        <button pButton type="button" label="Kiválaszt&nbsp;" icon="pi pi-eye" class="p-button" (click)="presentationControl.click()"></button>
+
+        <button pButton type="button" label="Kiválaszt..." icon="pi pi-eye" class="p-butto p-px-4" (click)="presentationControl.click()"></button>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-star" style="color: red"></i>
+        </span>
       </div>
       <div *ngIf="presentationModel.invalid && (presentationModel.dirty || presentationModel.touched)" class="p-px-3">
         <small *ngIf="presentationModel.errors?.required" class="p-invalid">A prezentáció feltöltése kötelező!</small>
