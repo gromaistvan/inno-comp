@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Message } from 'primeng/api/message';
 import { Company, Applicant, loadCompanies } from '../shared/models';
 
 @Component({
@@ -16,6 +17,7 @@ export class SignupComponent {
   company: Company;
   presentation: File[] | null = null;
   abstract: File[] | null = null;
+  message: Message[] = [];
 
   readonly companies: Company[];
 
@@ -24,6 +26,10 @@ export class SignupComponent {
   }
 
   async onSubmit(): Promise<void> {
+    if (! this.name || this.name.length < 5) return;
+    if (! this.email || this.email.length < 5) return;
+    if (! this.title || this.title.length < 10) return;
+    if (! this.company) return;
     if (! this.abstract || this.abstract.length === 0) return;
     if (! this.presentation || this.presentation.length === 0) return;
 
@@ -31,7 +37,6 @@ export class SignupComponent {
     formData.append('email', this.email);
     formData.append('abstract', this.abstract[0], this.abstract[0].name);
     formData.append('presentation', this.presentation[0], this.presentation[0].name);
-    await this.http.post('/api/file', formData).toPromise();
 
     const applicant: Applicant = {
       name: this.name,
@@ -40,8 +45,13 @@ export class SignupComponent {
       phone: this.phone,
       company: this.company
     };
-    await this.http.post<Applicant>('/api/applicant', applicant).toPromise();
 
-    this.router.navigate(['../applicants']);
+    try {
+      await this.http.post('/api/file', formData).toPromise();
+      await this.http.post('/api/applicant', applicant).toPromise();
+      this.router.navigate(['../applicants']);
+    } catch (error) {
+      this.message.push({ severity: 'error', summary: 'Hiba mentés közben!', detail: `${error}`, sticky: true });
+    }
   }
 }

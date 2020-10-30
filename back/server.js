@@ -34,7 +34,17 @@ app.use(express.static(`${process.cwd()}/app/`));
 
 app.get('/api/file', (req, res) => res.sendFile(`${path.dirname(require.main.filename)}/uploads/${req.params.file}`));
 
-app.post('/api/file', signupUpload, (_req, res) => res.sendStatus(200));
+app.post('/api/file', (req, res) => {
+  signupUpload(req, res, err =>{
+    if (err) {
+      console.error(err);
+      res.status(500).send(err);
+    }
+    else {
+      res.status(200).send('');
+    }
+  });
+});
 
 app.get('/api/applicant', async (_req, res) => {
   const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
