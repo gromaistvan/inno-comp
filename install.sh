@@ -68,11 +68,34 @@ node() {
 
 application() {
   echo "Intalling inno-comp"
-  systemctl stop inno-comp.service
-  systemctl disable inno-comp.service
-  sed -e s/\$DIRECTORY/$(pwd | sed 's/\//\\\//g')/g inno-comp-service >inno-comp.service
-  systemctl enable $PWD/inno-comp.service
-  systemctl start inno-comp.service
+  if [ ! -f ./inno-comp.service ]; then
+    echo "Email: "
+    read GMAIL_ADDRESS
+    echo "Password: "
+    read GMAIL_PASSWORD
+    cat <<EOT >inno-comp.service
+[Unit]
+Description=Innovációs Ösztöndíj 2020
+After=network.target mongod.service
+Requires=mongod.service
+AssertPathExists=${PWD}/back
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/npm start
+WorkingDirectory=${PWD}/back
+Restart=always
+RestartSec=60
+Environment=NODE_ENV=production PORT=80 GMAIL_ADDRESS=${GMAIL_ADDRESS} GMAIL_PASSWORD=${GMAIL_PASSWORD}
+
+[Install]
+WantedBy=multi-user.target
+EOT
+    systemctl enable $PWD/inno-comp.service
+    systemctl start inno-comp.service
+  else
+    systemctl restart inno-comp.service
+  fi
   systemctl status inno-comp.service --no-pager -l
 }
 

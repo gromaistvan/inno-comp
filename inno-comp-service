@@ -10,7 +10,7 @@ ExecStart=/usr/bin/npm start
 WorkingDirectory=$DIRECTORY/back
 Restart=always
 RestartSec=60
-Environment=NODE_ENV=production PORT=80
+Environment=NODE_ENV=production PORT=80 GMAIL_ADDRESS=$USER GMAIL_PASSWORD=$PASSWORD
 
 [Install]
 WantedBy=multi-user.target
