@@ -1,6 +1,6 @@
 <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
   <div class="p-fluid p-m-4">
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
           <input name="name" id="name" type="text" pInputText [(ngModel)]="name" #nameModel="ngModel" required minlength="5" unique />
@@ -8,13 +8,13 @@
         </span>
         <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
       </div>
-      <ng-container *ngIf="nameModel.invalid && (nameModel.dirty || nameModel.touched)">
+      <div *ngIf="nameModel.invalid && (nameModel.dirty || nameModel.touched)" class="p-px-3">
         <small *ngIf="nameModel.errors?.required" class="p-invalid">A név megadása kötelező!</small>
         <small *ngIf="nameModel.errors?.minlength" class="p-invalid">A név legalább 5 karakter legyen!</small>
         <small *ngIf="nameModel.errors?.used" class="p-invalid">Ezt a nevet már más használja!</small>
-      </ng-container>
+      </div>
     </div>
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
           <input name="email" id="email" type="email" pInputText [(ngModel)]="email" #emailModel="ngModel" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" />
@@ -22,12 +22,12 @@
         </span>
         <span class="p-inputgroup-addon">@</span>
       </div>
-      <div *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
+      <div *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)" class="p-px-3">
         <small *ngIf="emailModel.errors?.required" class="p-invalid">Az e-mail cím megadása kötelező!</small>
         <small *ngIf="emailModel.errors?.pattern" class="p-invalid">Az e-mail cím formátuma nem megfelelő (nev@tartomany.hu)!</small>
       </div>
     </div>
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
           <input name="phone" id="phone" type="tel" pInputText [(ngModel)]="phone" #phoneModel="ngModel" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" />
@@ -35,21 +35,21 @@
         </span>
         <span class="p-inputgroup-addon"><i class="pi pi-mobile"></i></span>
       </div>
-      <div *ngIf="phoneModel.invalid && (phoneModel.dirty || phoneModel.touched)">
+      <div *ngIf="phoneModel.invalid && (phoneModel.dirty || phoneModel.touched)" class="p-px-3">
         <small *ngIf="phoneModel.errors?.pattern" class="p-invalid">A telefonszám formátuma nem megfelelő (+36 70 12345678)!</small>
       </div>
     </div>
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <span class="p-float-label">
         <p-dropdown name="company" inputId="company" [options]="companies" [autoDisplayFirst]="false" [(ngModel)]="company"
           optionLabel="name" #companyModel="ngModel" [style]="{'width':'100%'}" required></p-dropdown>
         <label for="company">Foglalkoztató cég</label>
       </span>
-      <div *ngIf="companyModel.invalid && (companyModel.dirty || companyModel.touched)">
+      <div *ngIf="companyModel.invalid && (companyModel.dirty || companyModel.touched)" class="p-px-3">
         <small *ngIf="companyModel.errors?.required" class="p-invalid">A cég kiválasztása kötelező!</small>
       </div>
     </div>
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
           <input name="title" inputId="title" type="text" pInputText [(ngModel)]="title" #titleModel="ngModel" required minlength="10" />
@@ -57,12 +57,12 @@
         </span>
         <span class="p-inputgroup-addon"><i class="pi pi-comment"></i></span>
       </div>
-      <div *ngIf="titleModel.invalid && (titleModel.dirty || titleModel.touched)">
+      <div *ngIf="titleModel.invalid && (titleModel.dirty || titleModel.touched)" class="p-px-3">
         <small *ngIf="titleModel.errors?.required" class="p-invalid">A cím megadása kötelező!</small>
         <small *ngIf="titleModel.errors?.minlength" class="p-invalid">A cím legalább 10 karakter legyen!</small>
       </div>
     </div>
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
           <input inputId="abstract-name" pInputText type="text" class="p-text-uppercase" [value]="abstractControl?.value" readonly [disabled]="true" />
@@ -70,13 +70,13 @@
         </span>
         <button pButton type="button" label="Kiválaszt&nbsp;" icon="pi pi-pencil" class="p-button" (click)="abstractControl.click()"></button>
       </div>
-      <div *ngIf="abstractModel.invalid && (abstractModel.dirty || abstractModel.touched)">
+      <div *ngIf="abstractModel.invalid && (abstractModel.dirty || abstractModel.touched)" class="p-px-3">
         <small *ngIf="abstractModel.errors?.required" class="p-invalid">A rövid összefoglaló feltöltése kötelező!</small>
       </div>
       <input name="abstract" id="abstract" type="file" observeFiles [(ngModel)]="abstract" #abstractControl #abstractModel="ngModel"
               accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple="false" required style="display: none" />
     </div>
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
           <input inputId="presentation-name" pInputText type="text" class="p-text-uppercase" [value]="presentationControl?.value" readonly [disabled]="true" />
@@ -84,13 +84,13 @@
         </span>
         <button pButton type="button" label="Kiválaszt&nbsp;" icon="pi pi-eye" class="p-button" (click)="presentationControl.click()"></button>
       </div>
-      <div *ngIf="presentationModel.invalid && (presentationModel.dirty || presentationModel.touched)">
+      <div *ngIf="presentationModel.invalid && (presentationModel.dirty || presentationModel.touched)" class="p-px-3">
         <small *ngIf="presentationModel.errors?.required" class="p-invalid">A prezentáció feltöltése kötelező!</small>
       </div>
       <input name="presentation" id="presentation" type="file" observeFiles [(ngModel)]="presentation" #presentationControl #presentationModel="ngModel"
              accept="application/vnd.openxmlformats-officedocument.presentationml.presentation" multiple="false" required style="display: none" />
     </div>
-    <div class="p-field">
+    <div class="p-field p-py-2">
       <button pButton type="submit" label="Regisztráció" [disabled]="! signupForm.form.valid"></button>
     </div>
   </div>

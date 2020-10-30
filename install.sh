@@ -16,13 +16,13 @@ download () {
 }
 
 mongo() {
+  [ -f /usr/bin/mongo ] && return
   echo "Intalling MongoDB"
   if [ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]; then
-    apt-get install -y gnupg wget
+    [ -f /usr/share/doc/gnupg ] || apt-get install -y gnupg
+    [ -f /usr/bin/wget ] || apt-get install -y wget
     wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-    UBUNTU_VERISON=$(cat /etc/os-release | awk -F '=' '/^VERSION_ID/{print $2}' | awk '{print $1}' | tr -d '"')
-    echo "Ubuntu $UBUNTU_VERISON"
-    case $UBUNTU_VERISON in
+    case $(cat /etc/os-release | awk -F '=' '/^VERSION_ID/{print $2}' | awk '{print $1}' | tr -d '"') in
       "20.04")
         echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
         ;;
@@ -42,13 +42,19 @@ mongo() {
 
 node() {
   echo "Intalling Node.js"
-  if [ ! -f nodesource_setup.sh ]; then
-    apt-get install -y curl
-    curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
-    chmod +x nodesource_setup.sh
-    ./nodesource_setup.sh
+  if [ ! -f /usr/bin/node ]; then
+    if [ ! -f nodesource_setup.sh ]; then
+      apt-get install -y curl
+      curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+      chmod +x nodesource_setup.sh
+      ./nodesource_setup.sh
+    fi
+    apt-get install -y nodejs
   fi
-  apt-get install -y nodejs build-essential
+  which gcc
+  if [ $? == 1 ]; then
+    apt-get install -y build-essential
+  fi
   npm install -g npm@latest webpack@latest webpack-cli@latest
   pushd back
   npm install
