@@ -9,8 +9,6 @@ export interface Applicant {
   email: string;
   title: string;
   company: Company;
-  abstract: string;
-  presentation: string;
   phone?: string;
 }
 

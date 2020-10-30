@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Company, Applicant, loadCompanies } from '../shared/models';
 
@@ -18,28 +19,29 @@ export class SignupComponent {
 
   readonly companies: Company[];
 
-  constructor(private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient) {
     this.companies = loadCompanies();
   }
 
-  async upload(file: File|null): Promise<string|null> {
-    if (! file) return null;
-    const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
-    const result: any = await this.http.post('/api/upload', formData).toPromise();
-    return `${result.id}`;
-  }
-
   async onSubmit(): Promise<void> {
+    if (! this.abstract || this.abstract.length === 0) return;
+    if (! this.presentation || this.presentation.length === 0) return;
+
+    const formData: FormData = new FormData();
+    formData.append('email', this.email);
+    formData.append('abstract', this.abstract[0], this.abstract[0].name);
+    formData.append('presentation', this.presentation[0], this.presentation[0].name);
+    await this.http.post('/api/file', formData).toPromise();
+
     const applicant: Applicant = {
       name: this.name,
       email: this.email,
       title: this.title,
       phone: this.phone,
-      company: this.company,
-      abstract: await this.upload(this.abstract?.length > 0 ? this.abstract[0] : null),
-      presentation: await this.upload(this.presentation?.length > 0 ? this.presentation[0] : null),
+      company: this.company
     };
-    const result: Applicant = await this.http.post<Applicant>('/api/applicant', applicant).toPromise();
+    await this.http.post<Applicant>('/api/applicant', applicant).toPromise();
+
+    this.router.navigate(['../applicants']);
   }
 }

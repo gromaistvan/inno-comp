@@ -3,7 +3,7 @@
     <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
-          <input name="name" id="name" type="text" pInputText [(ngModel)]="name" #nameModel="ngModel" required minlength="5" unique />
+          <input name="name" id="name" type="text" pInputText [(ngModel)]="name" #nameModel="ngModel" required minlength="5" appUnique />
           <label for="name">Neved vagy csapatod neve</label>
         </span>
         <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
@@ -17,7 +17,7 @@
     <div class="p-field p-py-2">
       <div class="p-inputgroup">
         <span class="p-float-label">
-          <input name="email" id="email" type="email" pInputText [(ngModel)]="email" #emailModel="ngModel" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" />
+          <input name="email" id="email" type="email" pInputText [(ngModel)]="email" #emailModel="ngModel" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" appUnique />
           <label for="email">E-mail címed</label>
         </span>
         <span class="p-inputgroup-addon">@</span>

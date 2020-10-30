@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
-import { MessageModule }  from 'primeng/message';
-import { MessagesModule }  from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';

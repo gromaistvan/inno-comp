@@ -10,7 +10,23 @@ const database = process.env.DB || 'mongodb://localhost:27017';
 
 const app = express();
 
-const upload = multer({ dest: 'uploads/', limits: { fileSize: 50*1024*1024 } });
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: function (req, file, cb) {
+    if (file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+      cb(null, req.body.email + '.docx');
+    }
+    else if (file.mimetype === 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
+      cb(null, req.body.email + '.pptx');
+    }
+    else {
+      cb(new Error('Invalid file type!'), '');
+    }
+  }
+})
+const signupUpload =
+  multer({ storage: storage, limits: { fileSize: 50*1024*1024 } })
+  .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }])
 
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 
@@ -18,7 +34,7 @@ app.use(express.static(`${process.cwd()}/app/`));
 
 app.get('/api/file', (req, res) => res.sendFile(`${path.dirname(require.main.filename)}/uploads/${req.params.file}`));
 
-app.post('/api/file', upload.single('file'), (req, res) => res.json({ id: req.file.filename }));
+app.post('/api/file', signupUpload, (_req, res) => res.sendStatus(200));
 
 app.get('/api/applicant', async (_req, res) => {
   const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
