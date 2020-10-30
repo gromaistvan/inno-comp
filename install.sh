@@ -51,8 +51,7 @@ node() {
     fi
     apt-get install -y nodejs
   fi
-  which gcc
-  if [ $? == 1 ]; then
+  if [ ! -f /usr/bin/gcc ]; then
     apt-get install -y build-essential
   fi
   npm install -g npm@latest webpack@latest webpack-cli@latest
@@ -69,9 +68,9 @@ node() {
 application() {
   echo "Intalling inno-comp"
   if [ ! -f ./inno-comp.service ]; then
-    echo "Email: "
+    echo -n "Email: "
     read GMAIL_ADDRESS
-    echo "Password: "
+    echo -n "Password: "
     read GMAIL_PASSWORD
     cat <<EOT >inno-comp.service
 [Unit]
