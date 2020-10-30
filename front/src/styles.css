@@ -11,3 +11,7 @@
 body {
   background-color: lightsteelblue;
 }
+
+.p-menuitem-link-active {
+  background-color: brown;
+}
