@@ -41,7 +41,8 @@ app.post('/api/file', (req, res) => {
       res.status(500).send(err);
     }
     else {
-      res.status(200).send('');
+      res.status(500).send(err);
+      //res.status(200).send('');
     }
   });
 });

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Message } from 'primeng/api/message';
+import { Message, MessageService } from 'primeng/api';
 import { Company, Applicant, loadCompanies } from '../shared/models';
 
 @Component({
@@ -17,11 +17,14 @@ export class SignupComponent {
   company: Company;
   presentation: File[] | null = null;
   abstract: File[] | null = null;
-  message: Message[] = [];
 
+  readonly message: Message[] = [];
   readonly companies: Company[];
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private messageService: MessageService) {
     this.companies = loadCompanies();
   }
 
@@ -51,7 +54,7 @@ export class SignupComponent {
       await this.http.post('/api/applicant', applicant).toPromise();
       this.router.navigate(['../applicants']);
     } catch (error) {
-      this.message.push({ severity: 'error', summary: 'Hiba mentés közben!', detail: `${error}`, sticky: true });
+      this.messageService.add({ severity: 'error', summary: 'Hiba mentés közben!', detail: error.message, sticky: true });
     }
   }
 }
