@@ -3,3 +3,4 @@ app/*
 !app/.gitkeep
 uploads/*
 !uploads/.gitkeep
+server.bundle.js*
