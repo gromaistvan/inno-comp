@@ -3,10 +3,10 @@ const smtpTransport = require('nodemailer-smtp-transport');
 
 const smtp = process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD
   ? nodemailer.createTransport(smtpTransport({
-      service: 'gmail',
-      host: 'smtp.gmail.com',
-      auth: { user: process.env.GMAIL_ADDRESS, pass: process.env.GMAIL_PASSWORD }
-    }))
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: { user: process.env.GMAIL_ADDRESS, pass: process.env.GMAIL_PASSWORD }
+  }))
   : null;
 
 exports.send = async function(email, name) {
@@ -39,4 +39,4 @@ exports.send = async function(email, name) {
 <p>Erre az e-mailre ne válaszolj!</p>
 `.trim(),
   });
-}
+};

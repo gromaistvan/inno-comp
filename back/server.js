@@ -2,7 +2,7 @@ const path = require('path');
 const mongo = require('mongodb');
 const express = require('express');
 const validator = require('express-validator');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const multer = require('multer');
 const email = require('./email');
 
@@ -37,7 +37,7 @@ const storage = multer.diskStorage({
 });
 const signupUpload =
   multer({ storage: storage, limits: { fileSize: 50 * 1024 * 1024 } })
-  .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }]);
+    .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }]);
 
 app.get('/api/file/:name', (req, res) => {
   res.sendFile(`${path.dirname(require.main.filename)}/uploads/${req.params.name}`);
@@ -78,11 +78,11 @@ app.get('/api/applicant', async (_req, res) => {
 });
 
 app.post('/api/applicant', [
-    validator.body('name').exists(),
-    validator.body('email').normalizeEmail().isEmail(),
-    validator.body('title').exists(),
-    validator.body('company').exists(),
-  ], async (req, res) => {
+  validator.body('name').exists(),
+  validator.body('email').normalizeEmail().isEmail(),
+  validator.body('title').exists(),
+  validator.body('company').exists()],
+async (req, res) => {
   const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
   try {
     checkDate();
