@@ -5,7 +5,10 @@ const smtp = process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD
   ? nodemailer.createTransport(smtpTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
-    auth: { user: process.env.GMAIL_ADDRESS, pass: process.env.GMAIL_PASSWORD }
+    auth: {
+      user: process.env.GMAIL_ADDRESS,
+      pass: process.env.GMAIL_PASSWORD
+    }
   }))
   : null;
 
