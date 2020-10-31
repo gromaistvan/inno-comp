@@ -1,14 +1,14 @@
-export interface Company {
-  name: string;
-  ceo: string;
-}
-
 export interface Applicant {
   name: string;
   email: string;
   title: string;
-  company: Company;
+  company: string;
   phone?: string;
+}
+
+export interface Company {
+  name: string;
+  ceo: string;
 }
 
 export function loadCompanies(): Company[] {

@@ -96,7 +96,7 @@
       <div *ngIf="abstractModel.invalid && (abstractModel.dirty || abstractModel.touched)" class="p-px-3">
         <small *ngIf="abstractModel.errors?.required" class="p-invalid">A rövid összefoglaló feltöltése kötelező!</small>
       </div>
-      <input name="abstract" id="abstract" type="file" observeFiles [(ngModel)]="abstract" #abstractControl #abstractModel="ngModel"
+      <input name="abstract" id="abstract" type="file" appObserveFiles [(ngModel)]="abstract" #abstractControl #abstractModel="ngModel"
              tabindex="-1"
              accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple="false"
              required style="display: none" />
@@ -116,7 +116,7 @@
       <div *ngIf="presentationModel.invalid && (presentationModel.dirty || presentationModel.touched)" class="p-px-3">
         <small *ngIf="presentationModel.errors?.required" class="p-invalid">A prezentáció feltöltése kötelező!</small>
       </div>
-      <input name="presentation" id="presentation" type="file" observeFiles [(ngModel)]="presentation" #presentationControl #presentationModel="ngModel"
+      <input name="presentation" id="presentation" type="file" appObserveFiles [(ngModel)]="presentation" #presentationControl #presentationModel="ngModel"
              tabindex="-1"
              accept="application/vnd.openxmlformats-officedocument.presentationml.presentation" multiple="false"
              required style="display: none" />

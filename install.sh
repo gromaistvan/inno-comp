@@ -76,6 +76,9 @@ ExecStart=/usr/bin/npm start
 WorkingDirectory=${PWD}/back
 Restart=always
 RestartSec=60
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=inno-comp
 Environment=NODE_ENV=production PORT=80 GMAIL_ADDRESS=${GMAIL_ADDRESS} GMAIL_PASSWORD=${GMAIL_PASSWORD}
 
 [Install]

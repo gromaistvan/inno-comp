@@ -1,19 +1,17 @@
 const path = require('path');
 const mongo = require('mongodb');
 const express = require('express');
+const { body } = require('express-validator');
 const bodyParser = require("body-parser");
 const multer = require('multer');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
 const port = process.env.PORT || 80;
-
 const database = process.env.DB || 'mongodb://localhost:27017';
 
 const app = express();
-
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
-
 app.use(express.static(`${process.cwd()}/app/`));
 
 const storage = multer.diskStorage({
@@ -30,7 +28,6 @@ const storage = multer.diskStorage({
     }
   }
 })
-
 const signupUpload =
   multer({ storage: storage, limits: { fileSize: 50 * 1024 * 1024 } })
   .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }])
@@ -38,10 +35,10 @@ const signupUpload =
 app.get('/api/file', (req, res) => res.sendFile(`${path.dirname(require.main.filename)}/uploads/${req.params.file}`));
 
 app.post('/api/file', (req, res) => {
-  signupUpload(req, res, err =>{
-    if (err) {
-      console.error(err);
-      res.status(500).send(err);
+  signupUpload(req, res, error =>{
+    if (error) {
+      console.error(error);
+      res.status(500).send(error);
     }
     else {
       res.status(200).send('');
@@ -72,11 +69,23 @@ const smtp = process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD
     }))
   : null;
 
-app.post('/api/applicant', async (req, res) => {
+app.post('/api/applicant', [
+    body('name').exists(),
+    body('email').normalizeEmail().isEmail(),
+    body('title').exists(),
+    body('company').exists(),
+  ], async (req, res) => {
   const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
   try {
     await client.connect();
-    const result = await client.db('inno-comp').collection('applicants').insertOne(req.body);
+    const db = client.db('inno-comp');
+    let applications = (await db.collections()).find(c => c.collectionName === 'applicants');
+    if (! applications) {
+      applications = db.collection('applicants');
+      applications.createIndex( { "name": 1 }, { unique: true } );
+      applications.createIndex( { "email": 1 }, { unique: true } );
+    }
+    const result = await applications.insertOne(req.body);
     if (smtp) {
       await smtp.sendMail({
         from: smtp.transporter.options.auth.user,
@@ -87,16 +96,18 @@ app.post('/api/applicant', async (req, res) => {
 <h1>Kedves ${req.body.name}!</h1>
 <p>Gratulálunk, sikeresen regisztráltál az <a href="http://innovacio20.rcinet.local">Innovációs ösztöndíj 2020</a> pályázatra!</p>
 <pre>
+
             _____
-           /     \
-          /       \
-         /   WWW   \
-         \    |    /
-          \   |   /
-           \  |  /
+           /     \\
+          /       \\
+         /   WWW   \\
+         \\\\   |    /
+          \\\\  |   /
+           \\\\ |  /
             |===|
             |===|
              ###
+
 </pre>
 <hr>
 <p>Erre az e-mailre ne válaszolj!</p>
