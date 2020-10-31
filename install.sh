@@ -10,11 +10,13 @@ init() {
 }
 
 download() {
-  if [[ $(git fetch origin) -ne "" ]]; then
+  FETCH=$(git fetch origin)
+  if [[ "$FETCH" != "" ]]; then
     figlet "Downloading"
     git stash
     git pull
     git stash drop
+
     ./$(basename $0) && exit
   fi
 }
