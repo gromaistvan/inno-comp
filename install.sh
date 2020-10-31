@@ -53,6 +53,37 @@ function node {
   npm install npm@latest webpack@latest webpack-cli@latest -g --loglevel=error
 }
 
+function nginx {
+  figlet "nginx"
+  [[ -f /usr/sbin/nginx ]] || apt-get install -y nginx
+  [[ ! -z "$PUBHOST" ]] || read -p "Host: " PUBHOST
+  if [[ ! -f /etc/nginx/sites-available/$PUBHOST ]]; then
+    [[ ! -z "$PORT" ]] || read -p "Back-end port: " PORT
+    pushd /etc/nginx/sites-available/
+    cat >$PUBHOST <<EOT
+server {
+        listen 80;
+        server_name ${PUBHOST:-localhost};
+        client_max_body_size 100M;
+
+        location /  {
+                proxy_pass http://localhost:${PORT:-8080};
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade \$http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host \$host;
+                proxy_cache_bypass \$http_upgrade;
+        }
+}
+EOT
+    popd
+    pushd /etc/nginx/sites-enabled/
+    ln -s ../sites-available/$PUBHOST
+    popd
+    systemctl reload nginx.service
+  fi
+}
+
 function application {
   figlet "inno-comp"
   pushd back
@@ -64,9 +95,9 @@ function application {
   npm run build
   popd
   if [[ ! -f ./inno-comp.service ]]; then
-    read -p "Port: " PORT
-    read -p "Email: " GMAIL_ADDRESS
-    read -p "Password: " GMAIL_PASSWORD
+    [[ ! -z "$PORT" ]] || read -p "Back-end port: " PORT
+    [[ ! -z "$GMAIL_ADDRESS" ]] || read -p "Email: " GMAIL_ADDRESS
+    [[ ! -z "$GMAIL_PASSWORD" ]] || read -p "Password: " GMAIL_PASSWORD
     cat >inno-comp.service <<EOT
 [Unit]
 Description=Innovációs ösztöndíj 2020
@@ -100,4 +131,5 @@ init
 download
 mongo
 node
+nginx
 application

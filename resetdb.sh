@@ -1,7 +1,7 @@
 #!/bin/bash
 
 while true; do
-  read -p "Do you wish to reset database?" yn
+  read -p "Do you wish to reset database (yes/no)? " yn
   case $yn in
     [Yy]*) break;;
     [Nn]*) exit;;
