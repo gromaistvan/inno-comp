@@ -10,7 +10,7 @@ init() {
 }
 
 download() {
-  if [[ ! -z "$(git fetch origin)" ]]; then
+  if [[ $(git fetch origin) -ne "" ]]; then
     figlet "Downloading"
     git stash
     git pull
