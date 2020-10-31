@@ -11,7 +11,7 @@ function init {
 
 function download {
   CHANGED=0
-  git pull --dry-run | grep -q -v 'Already up-to-date.' && CHANGED=1
+  git pull --dry-run 2>&1 | grep -q -v 'Already up-to-date.' && CHANGED=1
   if [[ $CHANGED == 1 ]]; then
     figlet "Downloading"
     git stash
