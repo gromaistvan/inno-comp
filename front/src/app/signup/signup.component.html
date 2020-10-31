@@ -123,7 +123,7 @@
              required style="display: none" />
     </div>
     <div class="p-field p-py-2">
-      <button pButton type="submit" label="Regisztráció" [disabled]="! signupForm.form.valid"></button>
+      <button pButton type="submit" label="Regisztráció" [disabled]="! signupForm.form.valid || loading" [class.spinner]="loading"></button>
     </div>
     <div class="p-field p-py-2">
       <p-messages></p-messages>

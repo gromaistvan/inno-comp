@@ -16,6 +16,8 @@ export class SignupComponent implements AfterViewInit {
 
   readonly companies: Company[] = loadCompanies();
 
+  loading: boolean = false;
+
   name: string;
   email: string;
   phone: string;
@@ -81,26 +83,31 @@ export class SignupComponent implements AfterViewInit {
       return;
     }
 
-    const formData: FormData = new FormData();
-    formData.append('email', this.email);
-    formData.append('abstract', this.abstract[0], this.abstract[0].name);
-    formData.append('presentation', this.presentation[0], this.presentation[0].name);
-
-    const applicant: Applicant = {
-      name: this.name,
-      email: this.email,
-      title: this.title,
-      phone: this.phone,
-      company: this.company.name
-    };
-
     try {
+      this.loading = true;
+
+      const formData: FormData = new FormData();
+      formData.append('email', this.email);
+      formData.append('abstract', this.abstract[0], this.abstract[0].name);
+      formData.append('presentation', this.presentation[0], this.presentation[0].name);
       await this.http.post('/api/file', formData).toPromise();
+
+      const applicant: Applicant = {
+        name: this.name,
+        email: this.email,
+        title: this.title,
+        phone: this.phone,
+        company: this.company.name
+      };
       await this.http.post('/api/applicant', applicant).toPromise();
+
       this.router.navigate(['../applicants']);
     }
     catch (error) {
       this.sendError(error?.message);
+    }
+    finally {
+      this.loading = false;
     }
   }
 }

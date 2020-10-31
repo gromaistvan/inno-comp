@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 db.applicants.drop();
 db.createCollection('applicants', { autoIndexId: false });
 db.applicants.createIndex({ name: 1 }, { unique: true });

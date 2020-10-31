@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm -F ./back/uploads/*
+rm -f ./back/uploads/*
 mongo inno-comp ./back/resetdb.js

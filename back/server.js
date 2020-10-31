@@ -78,7 +78,7 @@ app.get('/api/applicant', async (_req, res) => {
 
 app.post('/api/applicant', [
   validator.body('name').exists(),
-  validator.body('email').normalizeEmail().isEmail(),
+  validator.body('email').exists().isEmail(),
   validator.body('title').exists(),
   validator.body('company').exists()],
 async (req, res) => {
