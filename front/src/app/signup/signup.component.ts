@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Message, MessageService } from 'primeng/api';
@@ -9,7 +9,13 @@ import { Company, Applicant, loadCompanies } from '../shared/models';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements AfterViewInit {
+  private readonly dueDate: Date = new Date(2020, 12, 1);
+
+  readonly message: Message[] = [];
+
+  readonly companies: Company[] = loadCompanies();
+
   name: string;
   email: string;
   phone: string;
@@ -17,9 +23,6 @@ export class SignupComponent {
   company: Company;
   presentation: File[] | null = null;
   abstract: File[] | null = null;
-
-  readonly message: Message[] = [];
-  readonly companies: Company[] = loadCompanies();
 
   constructor(
     private router: Router,
@@ -30,7 +33,7 @@ export class SignupComponent {
   private sendError(message: string): void {
     this.messageService.add({
       severity: 'error',
-      summary: 'Hiba mentés közben!',
+      summary: 'Hiba mentés közben',
       detail: message || '🎃 Általános hiba!'
     });
   }
@@ -61,6 +64,16 @@ export class SignupComponent {
       return false;
     }
     return true;
+  }
+
+  ngAfterViewInit(): void {
+    if (new Date() >= this.dueDate) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Határidő',
+        detail: 'A jelentkezési határidő lejárt!'
+      });
+    }
   }
 
   async onSubmit(): Promise<void> {

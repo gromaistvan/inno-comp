@@ -11,11 +11,6 @@
 
 /* Common */
 
-.logo {
-  width: 200px;
-  vertical-align: middle;
-}
-
 body {
   background-color: black;
   max-width: 1280px;

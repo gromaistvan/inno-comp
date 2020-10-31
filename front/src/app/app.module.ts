@@ -17,6 +17,7 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FileUploadModule } from 'primeng/fileupload';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { RecordingsComponent } from './recordings/recordings.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { SignupComponent } from './signup/signup.component';
+import { RequiredComponent } from './required/required.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { SignupComponent } from './signup/signup.component';
     ApplicantsComponent,
     SignupComponent,
     UniqueNameDirective,
-    FileInputValueAccessorDirective
+    FileInputValueAccessorDirective,
+    RequiredComponent
   ],
   imports: [
     HttpClientModule,
@@ -60,7 +63,8 @@ import { SignupComponent } from './signup/signup.component';
     CardModule,
     InputTextModule,
     InputMaskModule,
-    FileUploadModule
+    FileUploadModule,
+    TooltipModule
   ],
   providers: [
     MessageService

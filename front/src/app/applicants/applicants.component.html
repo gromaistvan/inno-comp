@@ -12,15 +12,26 @@
   </ng-template>
   <ng-template pTemplate="footer">
     <span [ngSwitch]="applicant.company">
-      <img *ngSwitchCase="'E-Educatio Információtechnológia Zrt.'" src="assets/sda.png" [alt]="applicant.company" class="logo" />
-      <img *ngSwitchCase="'eKRÉTA Informatikai Zrt.'" src="assets/ekreta.png" [alt]="applicant.company" class="logo" />
-      <img *ngSwitchCase="'ELMS Informatikai Zrt.'" src="assets/elms.png" [alt]="applicant.company" class="logo" />
-      <img *ngSwitchCase="'Max & Future Kft.'" src="assets/Max.png" [alt]="applicant.company" class="logo" />
-      <img *ngSwitchCase="'Rufusz Computer Informatika Zrt.'" src="assets/rufusz.png" [alt]="applicant.company" class="logo" />
-      <img *ngSwitchCase="'SDA DMS Zrt.'" src="assets/sdadms.png" [alt]="applicant.company" class="logo" />
-      <img *ngSwitchCase="'SDA Informatika Zrt.'" src="assets/sda.png" [alt]="applicant.company" class="logo" />
-      <img *ngSwitchCase="'Webjogsi KMR Autósiskola Zrt.'" src="assets/webjogsi.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'E-Educatio Információtechnológia Zrt.'" src="assets/sda.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
+      <img *ngSwitchCase="'eKRÉTA Informatikai Zrt.'" src="assets/ekreta.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
+      <img *ngSwitchCase="'ELMS Informatikai Zrt.'" src="assets/elms.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
+      <img *ngSwitchCase="'Max & Future Kft.'" src="assets/Max.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
+      <img *ngSwitchCase="'Rufusz Computer Informatika Zrt.'" src="assets/rufusz.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
+      <img *ngSwitchCase="'SDA DMS Zrt.'" src="assets/sdadms.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
+      <img *ngSwitchCase="'SDA Informatika Zrt.'" src="assets/sda.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
+      <img *ngSwitchCase="'Webjogsi KMR Autósiskola Zrt.'" src="assets/webjogsi.png" [alt]="applicant.company" [pTooltip]="applicant.company" tooltipPosition="top" class="logo" />
     </span>
     <span>{{applicant.company}}</span>
+    <span class="p-ml-4">
+      <a [routerLink]="" (click)="download(applicant, 'docx')">
+        <img src="assets/word.svg" alt="Összefoglaló" pTooltip="Összefoglaló" class="download" />
+      </a>
+    </span>
+    <span class="p-ml-4" *ngIf="overDueDate">
+      <a [routerLink]="" (click)="download(applicant, 'pptx')">
+        <img src="assets/power.svg" alt="Prezentáció" pTooltip="Prezentáció" class="download" />
+      </a>
+    </span>
   </ng-template>
 </p-card>
+<p-messages [(value)]="message" [closable]="false" styleClass="p-m-4"></p-messages>

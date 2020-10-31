@@ -9,6 +9,14 @@ const email = require('./email');
 const port = process.env.PORT || 80;
 const database = process.env.DB || 'mongodb://localhost:27017';
 
+const dueDate = new Date(2020, 12, 1);
+
+function checkDate() {
+  if (new Date() >= dueDate) {
+    throw new Error('Határidő túllépve!');
+  }
+}
+
 const app = express();
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(express.static(`${process.cwd()}/app/`));
@@ -31,10 +39,19 @@ const signupUpload =
   multer({ storage: storage, limits: { fileSize: 50 * 1024 * 1024 } })
   .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }]);
 
-app.get('/api/file', (req, res) => res.sendFile(`${path.dirname(require.main.filename)}/uploads/${req.params.file}`));
+app.get('/api/file/:name', (req, res) => {
+  res.sendFile(`${path.dirname(require.main.filename)}/uploads/${req.params.name}`);
+});
 
 app.post('/api/file', (req, res) => {
-  signupUpload(req, res, error =>{
+  try {
+    checkDate();
+  }
+  catch (error) {
+    res.status(500).send(error);
+    return;
+  }
+  signupUpload(req, res, error => {
     if (error) {
       console.error(error);
       res.status(500).send(error);
@@ -68,6 +85,7 @@ app.post('/api/applicant', [
   ], async (req, res) => {
   const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
   try {
+    checkDate();
     await client.connect();
     const db = client.db('inno-comp');
     let applications = (await db.collections()).find(c => c.collectionName === 'applicants');
@@ -82,6 +100,7 @@ app.post('/api/applicant', [
   }
   catch (error) {
     console.error(error);
+    res.status(500).send(error);
   }
   finally {
     client.close();
