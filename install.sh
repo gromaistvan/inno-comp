@@ -16,8 +16,7 @@ download() {
     git stash
     git pull
     git stash drop
-
-    ./$(basename $0) && exit
+    #./$(basename $0) && exit
   fi
 }
 
