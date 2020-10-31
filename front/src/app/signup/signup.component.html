@@ -126,7 +126,7 @@
       <button pButton type="submit" label="Regisztráció" [disabled]="! signupForm.form.valid || loading" [class.spinner]="loading"></button>
     </div>
     <div class="p-field p-py-2">
-      <p-messages></p-messages>
+      <p-messages [key]="'signup'"></p-messages>
     </div>
   </div>
 </form>

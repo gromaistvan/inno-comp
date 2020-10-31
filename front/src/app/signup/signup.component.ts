@@ -34,10 +34,11 @@ export class SignupComponent implements AfterViewInit {
 
   private sendError(message: string): void {
     this.messageService.add({
+      key: 'signup',
       severity: 'error',
       summary: 'Hiba mentés közben',
       detail: message || '🎃 Általános hiba!'
-    });
+    } as Message);
   }
 
   private validate(): boolean {
@@ -71,10 +72,11 @@ export class SignupComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (new Date() >= this.dueDate) {
       this.messageService.add({
+        key: 'signup',
         severity: 'warn',
         summary: 'Határidő',
         detail: 'A jelentkezési határidő lejárt!'
-      });
+      } as Message);
     }
   }
 
@@ -103,8 +105,18 @@ export class SignupComponent implements AfterViewInit {
 
       this.router.navigate(['../applicants']);
     }
-    catch (error) {
-      this.sendError(error?.message);
+    catch (ex) {
+      let msg = '';
+      if (ex.error && ex.error.errors) {
+        msg = ex.error.errors.map(r => r.msg).join(' ');
+      }
+      else if (ex.message) {
+        msg = ex.message;
+      }
+      else {
+        msg = ex.toString();
+      }
+      this.sendError(msg);
     }
     finally {
       this.loading = false;

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const email = require('./email');
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8080;
 const database = process.env.DB || 'mongodb://localhost:27017';
 
 const dueDate = new Date(2020, 12, 1);
@@ -77,11 +77,23 @@ app.get('/api/applicant', async (_req, res) => {
 });
 
 app.post('/api/applicant', [
-  validator.body('name').exists(),
-  validator.body('email').exists().isEmail(),
-  validator.body('title').exists(),
-  validator.body('company').exists()],
+  validator.body('name')
+    .exists().withMessage('A név megadása kötelező!')
+    .isLength({ min: 5 }).withMessage('A név legyen legalább 5 hosszú!'),
+  validator.body('email')
+    .exists().withMessage('Az e-mail megadása kötelező!')
+    .isLength({ min: 5 }).withMessage('Az e-mail legyen legalább 5 hosszú!')
+    .isEmail().withMessage('Az e-mail cím formátuma nem megfelelő!'),
+  validator.body('title')
+    .exists().withMessage('A cím megadása kötelező!')
+    .isLength({ min: 10 }).withMessage('A cím legyen legalább 10 hosszú!'),
+  validator.body('company')
+    .exists().withMessage('A cég megadása kötelező!')],
 async (req, res) => {
+  const errors = validator.validationResult(req);
+  if (! errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
   try {
     checkDate();
@@ -99,7 +111,7 @@ async (req, res) => {
   }
   catch (error) {
     console.error(error);
-    res.status(500).send(error);
+    res.status(500).json(error);
   }
   finally {
     client.close();

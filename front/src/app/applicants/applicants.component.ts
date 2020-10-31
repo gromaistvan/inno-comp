@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Applicant } from '../shared/models';
 import { UnderConstruction } from '../shared/under.construction';
@@ -8,27 +9,28 @@ import { UnderConstruction } from '../shared/under.construction';
   templateUrl: './applicants.component.html',
   styleUrls: ['./applicants.component.css']
 })
-export class ApplicantsComponent extends UnderConstruction implements OnInit {
+export class ApplicantsComponent extends UnderConstruction {
   private readonly dueDate: Date = new Date(2020, 12, 8);
 
   applicants: Applicant[] = [];
 
   constructor(
     private http: HttpClient) {
-    super();
+      super();
   }
 
   get overDueDate(): boolean {
     return new Date() >= this.dueDate;
   }
 
-  ngOnInit(): void {
-    this.http.get<Applicant[]>('/api/applicant').subscribe(applicants => {
-      if (applicants.length > 0) {
-        this.applicants = applicants;
-        this.message = [];
-      }
-    });
+  async ngOnInit(): Promise<void> {
+    const applicants: Applicant[] = await this.http.get<Applicant[]>('/api/applicant').toPromise();
+    if (applicants.length > 0) {
+      this.applicants = applicants;
+    }
+    else {
+      super.ngOnInit();
+    }
   }
 
   async download(applicant: Applicant, extension: string): Promise<void> {

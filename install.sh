@@ -64,10 +64,9 @@ function application {
   npm run build
   popd
   if [[ ! -f ./inno-comp.service ]]; then
-    echo -n "Email: "
-    read GMAIL_ADDRESS
-    echo -n "Password: "
-    read GMAIL_PASSWORD
+    read -p "Port: " PORT
+    read -p "Email: " GMAIL_ADDRESS
+    read -p "Password: " GMAIL_PASSWORD
     cat >inno-comp.service <<EOT
 [Unit]
 Description=Innovációs ösztöndíj 2020
@@ -84,7 +83,7 @@ RestartSec=60
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=inno-comp
-Environment=NODE_ENV=production PORT=80 GMAIL_ADDRESS=${GMAIL_ADDRESS} GMAIL_PASSWORD=${GMAIL_PASSWORD}
+Environment=NODE_ENV=production PORT=${PORT:-8080} GMAIL_ADDRESS=${GMAIL_ADDRESS} GMAIL_PASSWORD=${GMAIL_PASSWORD}
 
 [Install]
 WantedBy=multi-user.target
