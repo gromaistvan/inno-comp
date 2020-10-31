@@ -1,4 +1,4 @@
-<p-card *ngFor="let applicant of applicants" styleClass="p-m-4 p-shadow-24">
+<p-card *ngFor="let applicant of applicants" styleClass="p-m-4">
   <ng-template pTemplate="body">
     <div class="p-card-title">
       {{applicant.name}}
@@ -11,17 +11,16 @@
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
-    <span [ngSwitch]="applicant.company?.name">
-      <img *ngSwitchCase="'E-Educatio Információtechnológia Zrt.'" src="assets/sda.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'eKRÉTA Informatikai Zrt.'" src="assets/ekreta.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'ELMS Informatikai Zrt.'" src="assets/elms.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'Max & Future Kft.'" src="assets/Max.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'Rufusz Computer Informatika Zrt.'" src="assets/rufusz.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'SDA DMS Zrt.'" src="assets/sdadms.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'SDA Informatika Zrt.'" src="assets/sda.png" [alt]="applicant.company?.name" class="logo" />
-      <img *ngSwitchCase="'Webjogsi KMR Autósiskola Zrt.'" src="assets/webjogsi.png" [alt]="applicant.company?.name" class="logo" />
+    <span [ngSwitch]="applicant.company">
+      <img *ngSwitchCase="'E-Educatio Információtechnológia Zrt.'" src="assets/sda.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'eKRÉTA Informatikai Zrt.'" src="assets/ekreta.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'ELMS Informatikai Zrt.'" src="assets/elms.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'Max & Future Kft.'" src="assets/Max.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'Rufusz Computer Informatika Zrt.'" src="assets/rufusz.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'SDA DMS Zrt.'" src="assets/sdadms.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'SDA Informatika Zrt.'" src="assets/sda.png" [alt]="applicant.company" class="logo" />
+      <img *ngSwitchCase="'Webjogsi KMR Autósiskola Zrt.'" src="assets/webjogsi.png" [alt]="applicant.company" class="logo" />
     </span>
-    <span>{{applicant.company?.name}}</span>
+    <span>{{applicant.company}}</span>
   </ng-template>
 </p-card>
-

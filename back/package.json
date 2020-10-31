@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "author": "Groma István <wavezone@mrginfo.com>",
-  "description": "Innovációs Ösztöndíj 2020",
+  "description": "Innovációs ösztöndíj 2020 back-end",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",

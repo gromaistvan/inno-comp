@@ -16,7 +16,7 @@ export class UniqueNameDirective implements AsyncValidator {
     if (! group) {
       return null;
     }
-    let name: string;
+    let name = '';
     Object.keys(group.controls).forEach(key => {
       if (group.get(key) !== control) {
         return;
