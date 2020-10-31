@@ -45,17 +45,17 @@ node() {
     apt-get install -y nodejs
   fi
   [[ -f /usr/bin/gcc ]] || apt-get install -y build-essential
-  npm install -g npm@latest webpack@latest webpack-cli@latest
+  npm install npm@latest webpack@latest webpack-cli@latest -g --loglevel=error
 }
 
 application() {
   figlet "inno-comp"
   pushd back
-  npm install
+  npm install --loglevel=error
   npm run build
   popd
   pushd front
-  npm install
+  npm install --loglevel=error
   npm run build
   popd
   if [[ ! -f ./inno-comp.service ]]; then
