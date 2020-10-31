@@ -10,7 +10,7 @@ init() {
 }
 
 download() {
-  if [[ ! -z "$(git fetch remote)" ]]; then
+  if [[ ! -z "$(git fetch origin)" ]]; then
     figlet "Downloading"
     git stash
     git pull
