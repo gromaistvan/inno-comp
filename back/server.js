@@ -1,4 +1,3 @@
-const path = require('path');
 const mongo = require('mongodb');
 const express = require('express');
 const validator = require('express-validator');
@@ -40,7 +39,7 @@ const signupUpload =
     .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }]);
 
 app.get('/api/file/:name', (req, res) => {
-  res.sendFile(`${path.dirname(require.main.filename)}/uploads/${req.params.name}`);
+  res.sendFile(`${__dirname}/uploads/${req.params.name}`);
 });
 
 app.post('/api/file', (req, res) => {
