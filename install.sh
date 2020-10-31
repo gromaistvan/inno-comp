@@ -1,6 +1,6 @@
 #!/bin/bash
 
-init() {
+function init {
   if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo!"
     echo "sudo $0 $*"
@@ -9,7 +9,7 @@ init() {
   [[ -f /usr/bin/figlet ]] || apt-get install -y figlet
 }
 
-download() {
+function download {
   CHANGED=0
   git pull --dry-run | grep -q -v 'Already up-to-date.' && CHANGED=1
   if [[ $CHANGED = 1 ]]; then
@@ -21,7 +21,7 @@ download() {
   fi
 }
 
-mongo() {
+function mongo {
   if [[ ! -f /usr/bin/mongo ]]; then
     figlet "MongoDB"
     if [[ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]]; then
@@ -38,7 +38,7 @@ mongo() {
   fi
 }
 
-node() {
+function node {
   figlet "Node.js"
   if [[ ! -f /usr/bin/node ]]; then
     if [[ ! -f nodesource_setup.sh ]]; then
@@ -53,7 +53,7 @@ node() {
   npm install npm@latest webpack@latest webpack-cli@latest -g --loglevel=error
 }
 
-application() {
+function application {
   figlet "inno-comp"
   pushd back
   npm install --loglevel=error
@@ -70,7 +70,7 @@ application() {
     read GMAIL_PASSWORD
     cat >inno-comp.service <<EOT
 [Unit]
-Description=Innovációs Ösztöndíj 2020
+Description=Innovációs ösztöndíj 2020
 After=network.target mongod.service
 Requires=mongod.service
 AssertPathExists=${PWD}/back
