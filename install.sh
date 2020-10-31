@@ -10,10 +10,13 @@ init() {
 }
 
 download() {
-  figlet "Downloading"
-  git stash
-  git pull
-  git stash drop
+  if [[ ! -z "$(git fetch origin)" ]]; then
+    figlet "Downloading"
+    git stash
+    git pull
+    git stash drop
+    ./$(basename $0) && exit
+  fi
 }
 
 mongo() {
