@@ -11,6 +11,6 @@ done
 
 TIME=$(date +%Y%m%d%H%M%S)
 mkdir ./restore/$TIME
-mv ./back/uploads/* ./restore/$TIME
+mv -b ./back/uploads/* ./restore/$TIME/
 mongoexport --db=inno-comp --out=./restore/$TIME/db.json
 mongo inno-comp ./back/resetdb.js
