@@ -98,14 +98,8 @@ async (req, res) => {
   try {
     checkDate();
     await client.connect();
-    const db = client.db('inno-comp');
-    let applications = (await db.collections()).find(c => c.collectionName === 'applicants');
-    if (! applications) {
-      applications = db.collection('applicants');
-      applications.createIndex({ name: 1 }, { unique: true });
-      applications.createIndex({ email: 1 }, { unique: true });
-    }
-    const result = await applications.insertOne(req.body);
+    const collection = client.db('inno-comp').collection('applicants');
+    const result = await collection.insertOne(req.body);
     email.send(req.body.email, req.body.name);
     res.json(result);
   }
