@@ -8,5 +8,9 @@ while true; do
     *) echo "Please answer yes or no.";;
   esac
 done
-rm -f ./back/uploads/*
+
+TIME=$(date +%Y%m%d%H%M%S)
+mkdir ./restore/$TIME
+mv ./back/uploads/* ./restore/$TIME
+mongoexport --db=inno-comp --out=./restore/$TIME/db.json
 mongo inno-comp ./back/resetdb.js
