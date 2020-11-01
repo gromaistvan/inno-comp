@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node server.bundle.js",
     "build": "webpack",
-    "test": "jasmine",
+    "test": "jasmine --reporter=jasmine-ts-console-reporter",
     "debug": "nodemon ./server.js localhost 3080",
     "database": "node resetdb.js"
   },
@@ -29,10 +29,12 @@
   "devDependencies": {
     "del": "^5.1.0",
     "eslint": "^7.12.1",
+    "eslint-plugin-jasmine": "^4.1.1",
     "fancy-log": "^1.3.3",
     "gulp": "^4.0.2",
     "gulp-zip": "^5.0.2",
     "jasmine": "^3.6.3",
+    "jasmine-ts-console-reporter": "^3.1.1",
     "nodemon": "^2.0.6"
   },
   "optionalDependencies": {

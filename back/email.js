@@ -22,8 +22,12 @@ exports.send = async function(email, name) {
     subject: '💡 Innovációs ösztöndíj 2020 - Regisztráció',
     priority: 'high',
     html: `
-<h1>Kedves ${name}!</h1>
-<p>Gratulálunk, sikeresen regisztráltál az <a href="http://innovacio20.rcinet.local">Innovációs ösztöndíj 2020</a> pályázatra!</p>
+<h1>
+  Kedves ${name}!
+</h1>
+<p>
+  Gratulálunk, sikeresen regisztráltál az <a href="http://innovacio20.rcinet.local">Innovációs ösztöndíj 2020</a> pályázatra!
+</p>
 <pre>
 
           _____
@@ -39,7 +43,9 @@ exports.send = async function(email, name) {
 
 </pre>
 <hr>
-<p>Erre az e-mailre ne válaszolj!</p>
+<p>
+  <em>Erre az e-mailre ne válaszolj!</em>
+</p>
 `.trim(),
   });
 };

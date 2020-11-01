@@ -1,8 +1,10 @@
 module.exports = {
+  'plugins': ['jasmine'],
   'env': {
     'commonjs': true,
     'es2021': true,
-    'node': true
+    'node': true,
+    'jasmine': true
   },
   'extends': 'eslint:recommended',
   'parserOptions': {
