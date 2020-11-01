@@ -1,8 +1,5 @@
 #!/bin/bash
 
-source ~/.bashrc
-[[ ! -z "$PUBHOST" ]] || read -p "Host: " PUBHOST
-
 function init {
   if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo!"
@@ -129,6 +126,9 @@ EOT
   fi
   systemctl status inno-comp.service --no-pager -l
 }
+
+source ~/.bashrc
+[[ "$PUBHOST" != "" ]] || read -p "Host: " PUBHOST
 
 init
 download
