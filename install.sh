@@ -3,7 +3,7 @@
 function init {
   if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo!"
-    echo "sudo $0 $*"
+    echo "sudo -E $0 $*"
     exit 1
   fi
   [[ -f /usr/bin/figlet ]] || apt-get install -y figlet
@@ -60,7 +60,7 @@ function nginx {
     [[ -f /usr/sbin/nginx ]] || apt-get install -y nginx
     [[ ! -z "$PORT" ]] || read -p "Back-end port: " PORT
     pushd /etc/nginx/sites-available/
-    cat >$PUBHOST <<EOT
+    cat >$PUBHOST <<eot
 server {
         listen 80;
         server_name ${PUBHOST:-localhost};
@@ -75,7 +75,7 @@ server {
                 proxy_cache_bypass \$http_upgrade;
         }
 }
-EOT
+eot
     popd
     pushd /etc/nginx/sites-enabled/
     ln -s ../sites-available/$PUBHOST
@@ -98,7 +98,7 @@ function application {
     [[ ! -z "$PORT" ]] || read -p "Back-end port: " PORT
     [[ ! -z "$GMAIL_ADDRESS" ]] || read -p "Email: " GMAIL_ADDRESS
     [[ ! -z "$GMAIL_PASSWORD" ]] || read -p "Password: " GMAIL_PASSWORD
-    cat >inno-comp.service <<EOT
+    cat >inno-comp.service <<eot
 [Unit]
 Description=Innovációs ösztöndíj 2020
 After=network.target mongod.service
@@ -118,7 +118,7 @@ Environment=NODE_ENV=production PORT=${PORT:-8080} GMAIL_ADDRESS=${GMAIL_ADDRESS
 
 [Install]
 WantedBy=multi-user.target
-EOT
+eot
     systemctl enable $PWD/inno-comp.service
     systemctl start inno-comp.service
   else
@@ -126,9 +126,6 @@ EOT
   fi
   systemctl status inno-comp.service --no-pager -l
 }
-
-source ~/.bashrc
-[[ "$PUBHOST" != "" ]] || read -p "Host: " PUBHOST
 
 init
 download
