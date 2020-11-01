@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source ~/.bashrc
+[[ ! -z "$PUBHOST" ]] || read -p "Host: " PUBHOST
+
 function init {
   if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo!"
@@ -54,10 +57,10 @@ function node {
 }
 
 function nginx {
-  figlet "nginx"
-  [[ -f /usr/sbin/nginx ]] || apt-get install -y nginx
   [[ ! -z "$PUBHOST" ]] || read -p "Host: " PUBHOST
   if [[ ! -f /etc/nginx/sites-available/$PUBHOST ]]; then
+    figlet "nginx"
+    [[ -f /usr/sbin/nginx ]] || apt-get install -y nginx
     [[ ! -z "$PORT" ]] || read -p "Back-end port: " PORT
     pushd /etc/nginx/sites-available/
     cat >$PUBHOST <<EOT
