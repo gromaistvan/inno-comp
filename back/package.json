@@ -12,8 +12,9 @@
   "scripts": {
     "start": "node server.bundle.js",
     "build": "webpack",
+    "test": "jasmine",
     "debug": "nodemon ./server.js localhost 3080",
-    "test": "jasmine"
+    "database": "node resetdb.js"
   },
   "dependencies": {
     "aws4": "^1.11.0",

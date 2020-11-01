@@ -21,38 +21,6 @@ function download {
   fi
 }
 
-function mongo {
-  if [[ ! -f /usr/bin/mongo ]]; then
-    figlet "MongoDB"
-    if [[ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]]; then
-      [[ -f /usr/share/doc/gnupg ]] || apt-get install -y gnupg
-      [[ -f /usr/bin/wget ]] || apt-get install -y wget
-      wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-      . /etc/os-release
-      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $VERSION_CODENAME/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-      apt-get update
-    fi
-    apt-get install -y mongodb-org
-    systemctl enable mongod
-    systemctl start mongod
-  fi
-}
-
-function node {
-  figlet "Node.js"
-  if [[ ! -f /usr/bin/node ]]; then
-    if [[ ! -f nodesource_setup.sh ]]; then
-      apt-get install -y curl
-      curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
-      chmod +x nodesource_setup.sh
-      ./nodesource_setup.sh
-    fi
-    apt-get install -y nodejs
-  fi
-  [[ -f /usr/bin/gcc ]] || apt-get install -y build-essential
-  npm install npm@latest webpack@latest webpack-cli@latest -g --loglevel=error
-}
-
 function nginx {
   [[ ! -z "$PUBHOST" ]] || read -p "Host: " PUBHOST
   if [[ ! -f /etc/nginx/sites-available/$PUBHOST ]]; then
@@ -84,11 +52,45 @@ eot
   fi
 }
 
+function node {
+  figlet "Node.js"
+  if [[ ! -f /usr/bin/node ]]; then
+    if [[ ! -f nodesource_setup.sh ]]; then
+      apt-get install -y curl
+      curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+      chmod +x nodesource_setup.sh
+      ./nodesource_setup.sh
+    fi
+    apt-get install -y nodejs
+  fi
+  [[ -f /usr/bin/gcc ]] || apt-get install -y build-essential
+  npm install npm@latest webpack@latest webpack-cli@latest -g --loglevel=error
+}
+
+function mongo {
+  if [[ ! -f /usr/bin/mongo ]]; then
+    figlet "MongoDB"
+    if [[ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]]; then
+      [[ -f /usr/share/doc/gnupg ]] || apt-get install -y gnupg
+      [[ -f /usr/bin/wget ]] || apt-get install -y wget
+      wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
+      . /etc/os-release
+      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $VERSION_CODENAME/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+      apt-get update
+    fi
+    apt-get install -y mongodb-org
+    systemctl enable mongod
+    systemctl start mongod
+  fi
+}
+
 function application {
   figlet "inno-comp"
   pushd back
   npm install --loglevel=error
   npm run build
+  DATABASE=$(mongo --quiet --eval "db.getMongo().getDBNames().join('|')")
+  [[ "$DATABASE" == *"inno-comp"* ]] || npm run database
   popd
   pushd front
   npm install --loglevel=error
@@ -101,8 +103,8 @@ function application {
     cat >inno-comp.service <<eot
 [Unit]
 Description=Innovációs ösztöndíj 2020
-After=network.target mongod.service
-Requires=mongod.service
+After=network.target mongod.service nginx.service
+Requires=mongod.service nginx.service
 AssertPathExists=${PWD}/back
 
 [Service]
@@ -129,7 +131,7 @@ eot
 
 init
 download
-mongo
-node
 nginx
+node
+mongo
 application
