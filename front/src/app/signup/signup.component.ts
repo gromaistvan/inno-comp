@@ -16,7 +16,7 @@ export class SignupComponent implements AfterViewInit {
 
   readonly companies: Company[] = loadCompanies();
 
-  loading: boolean = false;
+  loading = false;
 
   name: string;
   email: string;

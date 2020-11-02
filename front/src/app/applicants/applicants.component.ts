@@ -9,7 +9,7 @@ import { UnderConstruction } from '../shared/under.construction';
   templateUrl: './applicants.component.html',
   styleUrls: ['./applicants.component.css']
 })
-export class ApplicantsComponent extends UnderConstruction {
+export class ApplicantsComponent extends UnderConstruction implements OnInit {
   private readonly dueDate: Date = new Date(2020, 12, 8);
 
   applicants: Applicant[] = [];
