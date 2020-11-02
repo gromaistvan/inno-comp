@@ -24,12 +24,17 @@ export class ApplicantsComponent extends UnderConstruction implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    const applicants: Applicant[] = await this.http.get<Applicant[]>('/api/applicant').toPromise();
-    if (applicants.length > 0) {
-      this.applicants = applicants;
+    try {
+      const applicants: Applicant[] = await this.http.get<Applicant[]>('/api/applicant').toPromise();
+      if (applicants.length > 0) {
+        this.applicants = applicants;
+      }
+      else {
+        super.ngOnInit();
+      }
     }
-    else {
-      super.ngOnInit();
+    catch (error) {
+      this.sendError(error.message);
     }
   }
 
