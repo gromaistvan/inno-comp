@@ -16,6 +16,7 @@ export function loadCompanies(): Company[] {
     { name: 'E-Educatio Információtechnológia Zrt.', ceo: 'Dr. Szőcs Károly' },
     { name: 'eKRÉTA Informatikai Zrt.', ceo: 'Dr. Szabó Balázs' },
     { name: 'ELMS Informatikai Zrt.', ceo: 'Fehér István' },
+    { name: 'LMS One Informatikai Zrt.', ceo: 'Csapó Attila' },
     { name: 'Max & Future Kft.', ceo: 'Zikkert Antal' },
     { name: 'Rufusz Computer Informatika Zrt.', ceo: 'Fauszt András' },
     { name: 'SDA DMS Zrt.', ceo: 'Bencze György' },
