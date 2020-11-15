@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'recordings', component: RecordingsComponent },
   { path: 'applicants', component: ApplicantsComponent },
   { path: 'jury', component: JuryComponent },
-  { path: '',   redirectTo: '/info', pathMatch: 'full' }
+  { path: '', redirectTo: '/info', pathMatch: 'full' }
 ];
 
 @NgModule({

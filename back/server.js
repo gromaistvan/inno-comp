@@ -62,7 +62,7 @@ app.post('/api/file', (req, res) => {
 });
 
 app.get('/api/applicant', async (_req, res) => {
-  const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
+  const client = new mongo.MongoClient(database, { useUnifiedTopology: true, autoReconnect: false, reconnectTries: 0, connectTimeoutMS: 1000 });
   try {
     await client.connect();
     const result = await client.db('inno-comp').collection('applicants').find({}).toArray();
@@ -70,6 +70,7 @@ app.get('/api/applicant', async (_req, res) => {
   }
   catch (error) {
     console.error(error);
+    res.status(500).json(error);
   }
   finally {
     client.close();
