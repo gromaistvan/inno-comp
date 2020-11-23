@@ -90,7 +90,7 @@ function application {
   npm install --loglevel=error
   npm run build
   DATABASE=$(mongo --quiet --eval "db.getMongo().getDBNames().join('|')")
-  [[ "$DATABASE" == *"inno-comp"* ]] || npm run database
+  #[[ "$DATABASE" == *"inno-comp"* ]] || npm run database
   popd
   pushd front
   npm install --loglevel=error
