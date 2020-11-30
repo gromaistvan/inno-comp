@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CanActivateMenu implements CanActivate {
-  private readonly signup: Date = new Date(2020, 12, 1);
-  private readonly recordings: Date = new Date(2020, 12, 14);
+  private readonly signup: Date = new Date(2020, 11, 1);
+  private readonly recordings: Date = new Date(2020, 11, 14);
 
   test(path: string): boolean {
     switch (path) {

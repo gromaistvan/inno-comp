@@ -10,7 +10,7 @@ import { Company, Applicant, loadCompanies } from '../shared/models';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements AfterViewInit {
-  private readonly dueDate: Date = new Date(2020, 12, 1);
+  private readonly dueDate: Date = new Date(2020, 11, 1);
 
   readonly message: Message[] = [];
 

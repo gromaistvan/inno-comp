@@ -9,7 +9,7 @@ import { UnderConstruction } from '../shared/under.construction';
   styleUrls: ['./applicants.component.css']
 })
 export class ApplicantsComponent extends UnderConstruction implements OnInit {
-  private readonly dueDate: Date = new Date(2020, 12, 8);
+  private readonly dueDate: Date = new Date(2020, 11, 8);
 
   applicants: Applicant[] = [];
 

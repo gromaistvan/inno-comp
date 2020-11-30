@@ -8,7 +8,7 @@ const email = require('./email');
 const port = process.env.PORT || 8080;
 const database = process.env.DB || 'mongodb://localhost:27017';
 
-const dueDate = new Date(2020, 12, 1);
+const dueDate = new Date(2020, 11, 1);
 
 function checkDate() {
   if (new Date() >= dueDate) {
