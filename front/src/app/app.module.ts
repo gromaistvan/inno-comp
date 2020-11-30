@@ -32,6 +32,7 @@ import { RecordingsComponent } from './recordings/recordings.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 import { SignupComponent } from './signup/signup.component';
 import { RequiredComponent } from './required/required.component';
+import { CanActivateMenu } from './shared/can-activate-menu';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { RequiredComponent } from './required/required.component';
     TooltipModule
   ],
   providers: [
-    MessageService
+    MessageService,
+    CanActivateMenu
   ],
   bootstrap: [
     AppComponent

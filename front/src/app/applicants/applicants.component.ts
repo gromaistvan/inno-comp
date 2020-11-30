@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Applicant } from '../shared/models';
 import { UnderConstruction } from '../shared/under.construction';
@@ -16,7 +15,7 @@ export class ApplicantsComponent extends UnderConstruction implements OnInit {
 
   constructor(
     private http: HttpClient) {
-      super();
+    super();
   }
 
   get overDueDate(): boolean {

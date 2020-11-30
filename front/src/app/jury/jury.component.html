@@ -1,1 +1,20 @@
+<p-card *ngFor="let member of jury" styleClass="p-m-4 highlighted">
+  <ng-template pTemplate="body">
+    <div class="p-card-title">
+      {{member.name}}
+    </div>
+    <div class="p-card-subtitle">
+      <a [href]="'mailto:' + member.email">{{member.email}}</a>
+    </div>
+    <div>
+      <span [ngSwitch]="member.company">
+        <img *ngSwitchCase="'Ericsson'" src="assets/ericsson.png" [alt]="member.company" [pTooltip]="member.company" tooltipPosition="top" class="logo" />
+        <img *ngSwitchCase="'BalaSys'" src="assets/balasys.png" [alt]="member.company" [pTooltip]="member.company" tooltipPosition="top" class="logo" />
+        <img *ngSwitchCase="'Codecool'" src="assets/codecool.png" [alt]="member.company" [pTooltip]="member.company" tooltipPosition="top" class="logo" />
+      </span>
+      <br>
+      {{member.introduction}}
+    </div>
+  </ng-template>
+</p-card>
 <p-messages [(value)]="messages" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [closable]="false" styleClass="p-m-4"></p-messages>

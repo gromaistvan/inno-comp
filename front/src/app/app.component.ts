@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { CanActivateMenu } from './shared/can-activate-menu';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +8,23 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  items: MenuItem[];
+  items: MenuItem[] = [];
+
+  constructor(private canActivateMenu: CanActivateMenu) {
+  }
+
+  createItem(label: string, icon: string, url: string): MenuItem {
+    return { label, icon: 'pi ' + icon, routerLink: ['/' + url], disabled: ! this.canActivateMenu.test(url) };
+  }
 
   ngOnInit() {
     this.items = [
-      { label: 'Tudnivalók', icon: 'pi pi-info', routerLink: ['/info'] },
-      { label: 'Regisztráció', icon: 'pi pi-user-plus', routerLink: ['/signup'] },
-      { label: 'Pályázók', icon: 'pi pi-users', routerLink: ['/applicants'] },
-      { label: 'Zsűri', icon: 'pi pi-eye', routerLink: ['/jury'] },
-      { label: 'Időbeosztás', icon: 'pi pi-calendar', routerLink: ['/schedule'] },
-      { label: 'Beszámolók', icon: 'pi pi-video', routerLink: ['/recordings'] }
+      this.createItem('Tudnivalók', 'pi-info', 'info'),
+      this.createItem('Regisztráció', 'pi-user-plus', 'signup'),
+      this.createItem('Pályázók', 'pi-users', 'applicants'),
+      this.createItem('Zsűri', 'pi-eye', 'jury'),
+      this.createItem('Időbeosztás', 'pi-calendar', 'schedule'),
+      this.createItem('Beszámolók', 'pi-video', 'recordings'),
     ];
   }
 }

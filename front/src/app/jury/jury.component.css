@@ -1,0 +1,9 @@
+.logo {
+  height: 60px;
+  float: right;
+  margin: 0px;
+}
+
+::ng-deep .highlighted  {
+  background:#3f4039;
+}

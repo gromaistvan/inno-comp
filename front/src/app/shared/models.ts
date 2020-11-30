@@ -11,6 +11,14 @@ export interface Company {
   ceo: string;
 }
 
+export interface Jury {
+  name: string;
+  email: string;
+  phone?: string;
+  company: string;
+  introduction: string;
+}
+
 export function loadCompanies(): Company[] {
   return [
     { name: 'E-Educatio Információtechnológia Zrt.', ceo: 'Dr. Szőcs Károly' },
