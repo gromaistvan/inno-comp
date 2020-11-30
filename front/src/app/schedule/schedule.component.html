@@ -1,1 +1,17 @@
+<p-table [value]="applicants">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Pályázó</th>
+          <th>Pályázat</th>
+          <th>Előadás időpontja</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-applicant>
+      <tr>
+          <td>{{applicant.name}}</td>
+          <td>{{applicant.title}}</td>
+          <td>{{applicant.presentationTime | date:'yyyy.MM.dd. HH:mm'}}</td>
+      </tr>
+  </ng-template>
+</p-table>
 <p-messages [(value)]="messages" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [closable]="false" styleClass="p-m-4"></p-messages>

@@ -4,6 +4,7 @@ export interface Applicant {
   title: string;
   company: string;
   phone?: string;
+  presentationTime?: Date;
 }
 
 export interface Company {

@@ -18,6 +18,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,7 +67,8 @@ import { CanActivateMenu } from './shared/can-activate-menu';
     InputTextModule,
     InputMaskModule,
     FileUploadModule,
-    TooltipModule
+    TooltipModule,
+    TableModule
   ],
   providers: [
     MessageService,
