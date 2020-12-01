@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class CanActivateMenu implements CanActivate {
     }
   }
 
-  canActivate(route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<boolean|UrlTree> | Promise<boolean|UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean|UrlTree> | Promise<boolean|UrlTree> | boolean | UrlTree {
     return this.test(route.url[0].path);
   }
 }
