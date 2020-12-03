@@ -23,14 +23,18 @@ Mindamellett, hogy szívügye az innováció, szervezetfejlesztési- és vállal
 `.trim(),
       },
       {
-        name: 'Evetovics Milán', email: 'evetovics.milan@balasys.hu',
+        name: 'Evetovics Milán', email: 'evetovics.milan@balasys.hu', phone: '+36203655197',
         company: 'BalaSys',
         introduction: `
-Feltöltés alatt...
+A ZMNE Bolyai János Katonai Műszaki Főiskolai Karán műszaki informatika szakon végzett.
+A Magyar Honvédségnél eltöltött 13 éves hivatásos tiszti pályafutása alatt központi hálózati biztonsággal, végpont védelemmel, incidens kezeléssel,
+valamint a központi szolgáltatások infrastruktúrájának tervezésével és üzemeltetésével foglalkozott.
+Utána az AGCO multinacionális vállalatánál a központi szolgáltatások integrációjáért felelős csapat tagja volt.
+2019-től a BalaSys csapat tagja, ahol rendszerintergrációs mérnökként tervezéssel és termékintegrációval foglalkozik.
 `.trim(),
       },
       {
-        name: 'Mocsáry András', email: '', phone: '+36204280198',
+        name: 'Mocsáry András', email: 'andras.mocsary@codecool.com', phone: '+36204280198',
         company: 'Codecool',
         introduction: `
 Feltöltés alatt...
