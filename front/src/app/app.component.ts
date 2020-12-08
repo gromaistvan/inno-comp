@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.items = [
       this.createItem('Tudnivalók', 'pi-info', 'info'),
-      this.createItem('Regisztráció', 'pi-user-plus', 'signup'),
+      // this.createItem('Regisztráció', 'pi-user-plus', 'signup'),
       this.createItem('Pályázók', 'pi-users', 'applicants'),
       this.createItem('Zsűri', 'pi-eye', 'jury'),
       this.createItem('Időbeosztás', 'pi-calendar', 'schedule'),
