@@ -37,7 +37,9 @@ Utána az AGCO multinacionális vállalatánál a központi szolgáltatások int
         name: 'Mocsáry András', email: 'andras.mocsary@codecool.com', phone: '+36204280198',
         company: 'Codecool',
         introduction: `
-Feltöltés alatt...
+2011-től az Ericssonnál, 2014-től pedig a Morgan Stanley-nél fejlesztői, illetve elemzői pozíciót tölt be.
+A 2018-től szabadúszó, majd 2020-ban mentorként csatlakozik a Codecool képzőközponthoz.
+Saját bevallása szerint nagy lelkesedéssel tanítja és támogatja az általa mentorált junior programozókat.
 `.trim(),
       },
     ];
