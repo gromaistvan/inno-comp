@@ -1,6 +1,7 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { Message } from 'primeng/api';
 
+@Directive()
 export class UnderConstruction implements OnInit {
   messages: Message[];
 
