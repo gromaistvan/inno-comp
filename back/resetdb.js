@@ -1,6 +1,9 @@
+const { MongoClient, Server } = require('mongodb');
+
 (async function() {
   let exitCode = 0;
-  const client = new require('mongodb').MongoClient('mongodb://localhost:27017', { useUnifiedTopology: true });
+
+  const client = new MongoClient(new Server('localhost', 27017), { useUnifiedTopology: true });
   try {
     await client.connect();
     const db = client.db('inno-comp');
