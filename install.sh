@@ -55,11 +55,11 @@ eot
 function node {
   figlet "Node.js"
   if [[ ! -f /usr/bin/node ]]; then
-    if [[ ! -f nodesource_setup.sh ]]; then
-      apt-get install -y curl
-      curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
-      chmod +x nodesource_setup.sh
-      ./nodesource_setup.sh
+    if [[ ! -f node.sh ]]; then
+      [[ -f /usr/bin/curl ]] || apt-get install -y curl
+      curl -fsSL https://deb.nodesource.com/setup_16.x -o node.sh
+      chmod +x node.sh
+      ./node.sh
     fi
     apt-get install -y nodejs
   fi
@@ -70,12 +70,12 @@ function node {
 function mongo {
   if [[ ! -f /usr/bin/mongo ]]; then
     figlet "MongoDB"
-    if [[ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]]; then
-      [[ -f /usr/share/doc/gnupg ]] || apt-get install -y gnupg
+    if [[ ! -f /etc/apt/sources.list.d/mongodb-org-5.0.list ]]; then
+      [[ -f /usr/bin/gpg ]] || apt-get install -y gnupg
       [[ -f /usr/bin/wget ]] || apt-get install -y wget
-      wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
       . /etc/os-release
-      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $VERSION_CODENAME/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+      wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
+      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $VERSION_CODENAME/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
       apt-get update
     fi
     apt-get install -y mongodb-org
