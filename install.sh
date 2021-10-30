@@ -89,8 +89,12 @@ function application {
   pushd back
   npm install --loglevel=error
   npm run build
-  DATABASE=$(mongo --quiet --eval "db.getMongo().getDBNames().join('|')")
-  #[[ "$DATABASE" == *"inno-comp"* ]] || npm run database
+  DATABASE=$(mongo --quiet --eval "'|' + db.getMongo().getDBNames().join('|') + '|'")
+  if [[ "$DATABASE" == *"|inno-comp|"* ]]; then
+    echo "Found inno-comp database."
+  else
+    npm run database
+  fi
   popd
   pushd front
   npm install --loglevel=error
@@ -102,7 +106,7 @@ function application {
     [[ ! -z "$GMAIL_PASSWORD" ]] || read -p "Password: " GMAIL_PASSWORD
     cat >inno-comp.service <<eot
 [Unit]
-Description=Innovációs ösztöndíj 2020
+Description=Innovációs ösztöndíj
 After=network.target mongod.service nginx.service
 Requires=mongod.service nginx.service
 AssertPathExists=${PWD}/back

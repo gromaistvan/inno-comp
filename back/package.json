@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "author": "Groma István <wavezone@mrginfo.com>",
-  "description": "Innovációs ösztöndíj 2020 back-end",
+  "description": "Innovációs ösztöndíj back-end",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "build": "webpack",
     "test": "jasmine --reporter=jasmine-ts-console-reporter",
     "debug": "nodemon ./server.js localhost 3080",
-    "database": "node resetdb.js"
+    "database": "node resetdb.mjs"
   },
   "dependencies": {
     "aws4": "^1.11.0",

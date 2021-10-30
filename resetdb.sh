@@ -19,4 +19,4 @@ TIME=$(date +%Y%m%d%H%M%S)
 mkdir ./restore/$TIME
 mv -f ./back/uploads/* ./restore/$TIME/
 mongoexport --db=inno-comp --collection=applicants --out=./restore/$TIME/db.json
-node ./back/resetdb.js
+node ./back/resetdb.mjs
