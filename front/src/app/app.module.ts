@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { MessageService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
@@ -19,14 +18,10 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { UniqueNameDirective } from './shared/unique-name.directive';
 import { FileInputValueAccessorDirective } from './shared/file-input.accessor.directive';
-
 import { InfoComponent } from './info/info.component';
 import { JuryComponent } from './jury/jury.component';
 import { ScheduleComponent } from './schedule/schedule.component';
