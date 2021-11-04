@@ -17,7 +17,7 @@ export class UnderConstruction implements OnInit {
     this.messages = [{
       severity: 'warn',
       summary: 'Hamarosan!',
-      detail: 'Amit elérhetővé válnak a szükséges információk, itt megtalálod.',
+      detail: 'Amint elérhetővé válnak a szükséges információk, itt megtalálod.',
     } as Message];
   }
 }

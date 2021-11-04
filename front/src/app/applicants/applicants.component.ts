@@ -1,6 +1,7 @@
+import { firstValueFrom } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Applicant } from '../shared/models';
+import { Applicant, dates } from '../shared/models';
 import { UnderConstruction } from '../shared/under.construction';
 
 @Component({
@@ -9,8 +10,6 @@ import { UnderConstruction } from '../shared/under.construction';
   styleUrls: ['./applicants.component.css']
 })
 export class ApplicantsComponent extends UnderConstruction implements OnInit {
-  private readonly dueDate: Date = new Date(2020, 11, 8);
-
   applicants: Applicant[] = [];
 
   constructor(
@@ -19,7 +18,7 @@ export class ApplicantsComponent extends UnderConstruction implements OnInit {
   }
 
   get overDueDate(): boolean {
-    return new Date() >= this.dueDate;
+    return true || new Date() >= dates.signup;
   }
 
   async ngOnInit(): Promise<void> {

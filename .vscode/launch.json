@@ -5,24 +5,23 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Chrome",
-      "type": "chrome",
+      "name": "Front-end",
+      "type": "node",
       "request": "launch",
-      "url": "http://localhost:3080",
-      "webRoot": "${workspaceFolder}/front"
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "start"],
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/front",
+      "env": { },
+      "outputCapture": "std"
     },
     {
       "name": "Back-end",
+      "type": "node",
       "request": "launch",
-      "type": "pwa-node",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run-script",
-        "debug"
-      ],
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "runtimeArgs": ["run-script", "debug"],
+      "skipFiles": ["<node_internals>/**"],
       "cwd": "${workspaceFolder}/back",
       "env": {
         "PORT": "3080",
@@ -30,31 +29,17 @@
       }
     },
     {
-      "name": "Front-end",
+      "name": "Chrome",
+      "type": "chrome",
       "request": "launch",
-      "type": "pwa-node",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run-script",
-        "start"
-      ],
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "cwd": "${workspaceFolder}/front",
-      "env": {
-      },
-      "outputCapture": "std"
+      "url": "http://localhost:3080",
+      "webRoot": "${workspaceFolder}/front"
     }
   ],
   "compounds": [
     {
       "name": "All",
-      "configurations": [
-        "Back-end",
-        "Front-end",
-        "Chrome"
-      ]
+      "configurations": ["Front-end", "Back-end", "Chrome"]
     }
   ]
 }

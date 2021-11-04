@@ -89,7 +89,7 @@
       <div class="p-inputgroup">
         <button pButton type="button" icon="pi pi-pencil" class="p-button" (click)="abstractControl.click()" pTooltip="Fájl kiválasztása" tooltipPosition="top"></button>
         <span class="p-float-label" (dblclick)="abstractControl.click()" >
-          <input inputId="abstract-name" pInputText type="text" class="uppercase" [value]="abstractControl?.value" tabindex="-1" readonly />
+          <input inputId="abstract-name" pInputText type="text" class="uppercase" [value]="abstractControl?.value" tabindex="-1" readonly disabled />
           <label for="abstract-name">~1 oldalas rövid összefoglaló</label>
         </span>
         <span class="p-inputgroup-addon">
@@ -109,7 +109,7 @@
       <div class="p-inputgroup">
         <button pButton type="button" icon="pi pi-eye" class="p-button" (click)="presentationControl.click()" pTooltip="Fájl kiválasztása" tooltipPosition="top"></button>
         <span class="p-float-label" (dblclick)="presentationControl.click()">
-          <input inputId="presentation-name" pInputText type="text" class="uppercase" [value]="presentationControl?.value" tabindex="-1" readonly />
+          <input inputId="presentation-name" pInputText type="text" class="uppercase" [value]="presentationControl?.value" tabindex="-1" readonly disabled />
           <label for="presentation-name">~15 perces prezentáció</label>
         </span>
         <span class="p-inputgroup-addon">
