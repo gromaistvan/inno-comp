@@ -2,7 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Message, MessageService } from 'primeng/api';
-import { Company, Applicant, loadCompanies } from '../shared/models';
+import { Company, Applicant, loadCompanies, dates } from '../shared/models';
 
 @Component({
   selector: 'app-signup',
@@ -10,14 +10,9 @@ import { Company, Applicant, loadCompanies } from '../shared/models';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements AfterViewInit {
-  private readonly dueDate: Date = new Date(2020, 11, 1);
-
   readonly message: Message[] = [];
-
   readonly companies: Company[] = loadCompanies();
-
   loading = false;
-
   name: string;
   email: string;
   phone: string;
@@ -70,7 +65,7 @@ export class SignupComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (new Date() >= this.dueDate) {
+    if (new Date() >= dates.signup) {
       this.messageService.add({
         key: 'signup',
         severity: 'warn',

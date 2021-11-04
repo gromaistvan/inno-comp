@@ -1,14 +1,13 @@
 const mongo = require('mongodb');
 const express = require('express');
 const validator = require('express-validator');
-const bodyParser = require('body-parser');
 const multer = require('multer');
 const email = require('./email');
 
 const port = process.env.PORT || 8080;
 const database = process.env.DB || 'mongodb://localhost:27017';
 
-const dueDate = new Date(2020, 11, 1);
+const dueDate = new Date(2021, 12, 1);
 
 function checkDate() {
   if (new Date() >= dueDate) {
@@ -17,7 +16,7 @@ function checkDate() {
 }
 
 const app = express();
-app.use(bodyParser.json({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: '50mb', extended: true }));
 app.use(express.static(`${process.cwd()}/app/`));
 
 const storage = multer.diskStorage({
@@ -34,9 +33,8 @@ const storage = multer.diskStorage({
     }
   }
 });
-const signupUpload =
-  multer({ storage: storage, limits: { fileSize: 50 * 1024 * 1024 } })
-    .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }]);
+const signupUpload = multer({ storage: storage, limits: { fileSize: 50 * 1024 * 1024 } })
+  .fields([{ name: 'abstract', maxCount: 1 }, { name: 'presentation', maxCount: 1 }]);
 
 app.get('/api/file/:name', (req, res) => {
   res.sendFile(`${__dirname}/uploads/${req.params.name}`);
@@ -62,7 +60,7 @@ app.post('/api/file', (req, res) => {
 });
 
 app.get('/api/applicant', async (_req, res) => {
-  const client = new mongo.MongoClient(database, { useUnifiedTopology: true, autoReconnect: false, reconnectTries: 0, connectTimeoutMS: 1000 });
+  const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
   try {
     await client.connect();
     const result = await client.db('inno-comp').collection('applicants').find({}).toArray();
@@ -95,21 +93,23 @@ async (req, res) => {
   if (! errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
   try {
     checkDate();
-    await client.connect();
-    const collection = client.db('inno-comp').collection('applicants');
-    const result = await collection.insertOne(req.body);
-    email.send(req.body.email, req.body.name);
-    res.json(result);
+    const client = new mongo.MongoClient(database, { useUnifiedTopology: true });
+    try {
+      await client.connect();
+      const collection = client.db('inno-comp').collection('applicants');
+      const result = await collection.insertOne(req.body);
+      email.send(req.body.email, req.body.name);
+      res.json(result);
+    }
+    finally {
+      client.close();
+    }
   }
   catch (error) {
     console.error(error);
     res.status(500).json(error);
-  }
-  finally {
-    client.close();
   }
 });
 

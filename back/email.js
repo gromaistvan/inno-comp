@@ -19,32 +19,38 @@ exports.send = async function(email, name) {
   await smtp.sendMail({
     from: smtp.transporter.options.auth.user,
     to: email,
-    subject: '💡 Innovációs ösztöndíj 2020 - Regisztráció',
+    subject: '💡 Innovációs ösztöndíj 2021 - Regisztráció',
     priority: 'high',
     html: `
-<h1>
-  Kedves ${name}!
-</h1>
-<p>
-  Gratulálunk, sikeresen regisztráltál az <a href="http://innovacio20.rcinet.local">Innovációs ösztöndíj 2020</a> pályázatra!
-</p>
-<pre>
-
-          _____
-         /     \\
-        /       \\
-       /   WWW   \\
-       \\\\   |    /
-        \\\\  |   /
-         \\\\ |  /
-          |===|
-          |===|
-           ###
-
-</pre>
-<hr>
-<p>
-  <em>Erre az e-mailre ne válaszolj!</em>
+<body style="background:rgb(42,50,61)">
+  <h1 style="color:rgb(255,224,130)">
+    Kedves ${name}!
+  </h1>
+  <table border="0">
+     <tr>
+       <td style="width:100px;color:rgb(255,224,130)"><pre style="font-size:8px">      _____
+     /     \\
+    /       \\
+   /   WWW   \\
+   \\\\   |    /
+    \\\\  |   /
+     \\\\ |  /
+      |===|
+      |===|
+      |===|
+       ###</pre>
+        </td>
+        <td style="vertical-align:top;color:white">
+          <p>
+            Gratulálunk, sikeresen regisztráltál az <b>Innovációs ösztöndíj 2021</b> pályázatra!
+          </p>
+          <p>
+            Figyeld a <a href="http://innovacio21.rcinet.local" style="color:rgb(255,224,130)">weboldalon</a> a folyamatosan frissülő információkat!
+        </td>
+   </tr>
+</table>
+<p style="color:gray">
+  Erre az e-mailre ne válaszolj!
 </p>
 `.trim(),
   });

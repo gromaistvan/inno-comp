@@ -11,10 +11,10 @@ import { SignupComponent } from './signup/signup.component';
 const routes: Routes = [
   { path: 'info', component: InfoComponent },
   { path: 'signup', component: SignupComponent, canActivate: [CanActivateMenu] },
-  { path: 'schedule', component: ScheduleComponent },
+  { path: 'schedule', component: ScheduleComponent, canActivate: [CanActivateMenu] },
   { path: 'recordings', component: RecordingsComponent, canActivate: [CanActivateMenu] },
   { path: 'applicants', component: ApplicantsComponent },
-  { path: 'jury', component: JuryComponent },
+  { path: 'jury', component: JuryComponent, canActivate: [CanActivateMenu] },
   { path: '', redirectTo: '/info', pathMatch: 'full' }
 ];
 

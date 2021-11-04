@@ -33,3 +33,11 @@ export function loadCompanies(): Company[] {
     { name: 'Webjogsi KMR Autósiskola Zrt.', ceo: 'Dr. Szőcs Károly' },
   ];
 }
+
+export const dates: {
+  readonly signup: Date,
+  readonly presentation: Date
+} = {
+  signup: new Date(2021, 11, 30),
+  presentation: new Date(2021, 12, 13)
+};
