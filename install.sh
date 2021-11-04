@@ -22,7 +22,8 @@ function download {
 }
 
 function nginx {
-  [[ ! -z "$PUBHOST" ]] || read -p "Host: " PUBHOST
+  [[ ! -z "$PUBHOST" ]] || read -p "Hostname: " PUBHOST
+  [[ ! -z "$PUBHOST" ]] || PUBHOST=$(hostname)
   if [[ ! -f /etc/nginx/sites-available/$PUBHOST ]]; then
     figlet "nginx"
     [[ -f /usr/sbin/nginx ]] || apt-get install -y nginx
@@ -31,7 +32,7 @@ function nginx {
     cat >$PUBHOST <<eot
 server {
         listen 80;
-        server_name ${PUBHOST:-localhost};
+        server_name ${PUBHOST};
         client_max_body_size 100M;
 
         location /  {
