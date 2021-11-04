@@ -22,21 +22,20 @@ function download {
 }
 
 function nginx {
-  [[ ! -z "$PUBHOST" ]] || read -p "Hostname: " PUBHOST
-  [[ ! -z "$PUBHOST" ]] || PUBHOST=$(hostname)
-  if [[ ! -f /etc/nginx/sites-available/$PUBHOST ]]; then
+  if [[ ! -f /etc/nginx/sites-available/inno-comp ]]; then
     figlet "nginx"
     [[ -f /usr/sbin/nginx ]] || apt-get install -y nginx
-    [[ ! -z "$PORT" ]] || read -p "Back-end port: " PORT
+    [[ ! -z "$PUBLIC_HOST" ]] || read -e -p "Hostname: " -i $(hostname -f) PUBLIC_HOST
+    [[ ! -z "$LOCAL_PORT" ]] || read -e -p "Back-end port: " -i 8080 LOCAL_PORT
     pushd /etc/nginx/sites-available/
-    cat >$PUBHOST <<eot
+    cat >inno-comp <<eot
 server {
         listen 80;
-        server_name ${PUBHOST};
+        server_name ${PUBLIC_HOST:-localhost};
         client_max_body_size 100M;
 
         location /  {
-                proxy_pass http://localhost:${PORT:-8080};
+                proxy_pass http://localhost:${LOCAL_PORT:-8080};
                 proxy_http_version 1.1;
                 proxy_set_header Upgrade \$http_upgrade;
                 proxy_set_header Connection 'upgrade';
@@ -47,7 +46,7 @@ server {
 eot
     popd
     pushd /etc/nginx/sites-enabled/
-    ln -s ../sites-available/$PUBHOST
+    ln -s ../sites-available/inno-comp
     popd
     systemctl reload nginx.service
   fi
@@ -102,9 +101,10 @@ function application {
   npm run build
   popd
   if [[ ! -f ./inno-comp.service ]]; then
-    [[ ! -z "$PORT" ]] || read -p "Back-end port: " PORT
-    [[ ! -z "$GMAIL_ADDRESS" ]] || read -p "Email: " GMAIL_ADDRESS
-    [[ ! -z "$GMAIL_PASSWORD" ]] || read -p "Password: " GMAIL_PASSWORD
+    [[ ! -z "$LOCAL_PORT" ]] || read -e -p "Back-end port: " -i 8080 LOCAL_PORT
+    [[ ! -z "$GMAIL_ADDRESS" ]] || read -e -p "Email: " -i "@gmail.com" GMAIL_ADDRESS
+    [[ ! -z "$GMAIL_PASSWORD" ]] || read -e -p "Password: " -s GMAIL_PASSWORD
+    echo
     cat >inno-comp.service <<eot
 [Unit]
 Description=Innovációs ösztöndíj
@@ -121,7 +121,7 @@ RestartSec=60
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=inno-comp
-Environment=NODE_ENV=production PORT=${PORT:-8080} GMAIL_ADDRESS=${GMAIL_ADDRESS} GMAIL_PASSWORD=${GMAIL_PASSWORD}
+Environment=NODE_ENV=production PORT=${LOCAL_PORT:-8080} GMAIL_ADDRESS=${GMAIL_ADDRESS} GMAIL_PASSWORD=${GMAIL_PASSWORD}
 
 [Install]
 WantedBy=multi-user.target
