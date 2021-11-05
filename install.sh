@@ -48,7 +48,7 @@ eot
     pushd /etc/nginx/sites-enabled/
     ln -s ../sites-available/inno-comp
     popd
-    systemctl reload nginx.service
+    systemctl restart nginx
   fi
 }
 

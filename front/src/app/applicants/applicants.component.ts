@@ -18,7 +18,7 @@ export class ApplicantsComponent extends UnderConstruction implements OnInit {
   }
 
   get overDueDate(): boolean {
-    return true || new Date() >= dates.signup;
+    return new Date() >= dates.signup;
   }
 
   async ngOnInit(): Promise<void> {
