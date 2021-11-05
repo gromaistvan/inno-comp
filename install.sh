@@ -102,8 +102,8 @@ function application {
   popd
   if [[ ! -f ./inno-comp.service ]]; then
     [[ ! -z "$LOCAL_PORT" ]] || read -e -p "Back-end port: " -i 8080 LOCAL_PORT
-    [[ ! -z "$GMAIL_ADDRESS" ]] || read -e -p "Email: " -i "@gmail.com" GMAIL_ADDRESS
-    [[ ! -z "$GMAIL_PASSWORD" ]] || read -e -p "Password: " -s GMAIL_PASSWORD
+    [[ ! -z "$GMAIL_USER" ]] || [[ ! -z "$RCI_USER" ]] || read -e -p "Email user: " RCI_USER
+    [[ ! -z "$GMAIL_PASSWORD" ]] || [[ ! -z "$RCI_PASSWORD" ]] || read -e -p "Email password: " -s RCI_PASSWORD
     echo
     cat >inno-comp.service <<eot
 [Unit]
@@ -121,7 +121,7 @@ RestartSec=60
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=inno-comp
-Environment=NODE_ENV=production PORT=${LOCAL_PORT:-8080} GMAIL_ADDRESS=${GMAIL_ADDRESS} GMAIL_PASSWORD=${GMAIL_PASSWORD}
+Environment=NODE_ENV=production PORT=${LOCAL_PORT:-8080} RCI_USER=${RCI_USER} RCI_PASSWORD=${RCI_PASSWORD} GMAIL_USER=${GMAIL_USER} GMAIL_PASSWORD=${GMAIL_PASSWORD}
 
 [Install]
 WantedBy=multi-user.target

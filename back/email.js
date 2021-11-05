@@ -3,7 +3,7 @@ const smtpTransport = require('nodemailer-smtp-transport');
 
 let smtp;
 
-if (process.env.RCI_ADDRESS && process.env.RCI_PASSWORD) {
+if (process.env.RCI_USER && process.env.RCI_PASSWORD) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
   smtp = nodemailer.createTransport({
     host: 'owa.rufusz.hu',
@@ -11,17 +11,17 @@ if (process.env.RCI_ADDRESS && process.env.RCI_PASSWORD) {
     requireTLS : true,
     logger: true,
     auth: {
-      user: process.env.RCI_ADDRESS,
+      user: process.env.RCI_USER,
       pass: process.env.RCI_PASSWORD
     }
   });
 }
-else if (process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD) {
+else if (process.env.GMAIL_USER && process.env.GMAIL_PASSWORD) {
   smtp = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
     auth: {
-      user: process.env.GMAIL_ADDRESS,
+      user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASSWORD
     }
   }));
@@ -70,4 +70,4 @@ exports.send = async function(email, name) {
   });
 };
 
-exports.send('groma.istvan@sdadms.hu', 'NAGY csapat!');
+//exports.send('groma.istvan@sdadms.hu', 'NAGY csapat!');

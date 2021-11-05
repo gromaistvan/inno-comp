@@ -5,9 +5,9 @@ export PUBLIC_HOST=innovacio21.germanywestcentral.cloudapp.azure.com
 export LOCAL_PORT=8080
 
 # RCI MS Exchange account:
-export RCI_ADDRESS=
+export RCI_USER=
 export RCI_PASSWORD=
 
 # Gmail account:
-export GMAIL_ADDRESS=
+export GMAIL_USER=
 export GMAIL_PASSWORD=
