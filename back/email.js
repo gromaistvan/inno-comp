@@ -3,28 +3,31 @@ const smtpTransport = require('nodemailer-smtp-transport');
 
 let smtp;
 
-if (process.env.RCI_USER && process.env.RCI_PASSWORD) {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-  smtp = nodemailer.createTransport({
-    host: 'owa.rufusz.hu',
-    port: 587,
-    requireTLS : true,
-    logger: true,
-    auth: {
-      user: process.env.RCI_USER,
-      pass: process.env.RCI_PASSWORD
-    }
-  });
-}
-else if (process.env.GMAIL_USER && process.env.GMAIL_PASSWORD) {
-  smtp = nodemailer.createTransport(smtpTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASSWORD
-    }
-  }));
+if (process.env.SMTP_USER && process.env.SMTP_PASSWORD) {
+  if (process.env.SMTP_USER.endsWith('@gmail.com')) {
+    smtp = nodemailer.createTransport(smtpTransport({
+      service: 'gmail',
+      logger: process.env.NODE_ENV !== 'production',
+      host: 'smtp.gmail.com',
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD
+      }
+    }));
+  }
+  else {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+    smtp = nodemailer.createTransport({
+      host: 'owa.rufusz.hu',
+      port: 587,
+      requireTLS : true,
+      logger: process.env.NODE_ENV !== 'production',
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD
+      }
+    });
+  }
 }
 
 exports.send = async function(email, name) {
@@ -69,5 +72,3 @@ exports.send = async function(email, name) {
 `.trim(),
   });
 };
-
-//exports.send('groma.istvan@sdadms.hu', 'NAGY csapat!');
