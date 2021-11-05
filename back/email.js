@@ -1,24 +1,38 @@
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
-const smtp = process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD
-  ? nodemailer.createTransport(smtpTransport({
+let smtp;
+
+if (process.env.RCI_ADDRESS && process.env.RCI_PASSWORD) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+  smtp = nodemailer.createTransport({
+    host: 'owa.rufusz.hu',
+    port: 587,
+    requireTLS : true,
+    logger: true,
+    auth: {
+      user: process.env.RCI_ADDRESS,
+      pass: process.env.RCI_PASSWORD
+    }
+  });
+}
+else if (process.env.GMAIL_ADDRESS && process.env.GMAIL_PASSWORD) {
+  smtp = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
     auth: {
       user: process.env.GMAIL_ADDRESS,
       pass: process.env.GMAIL_PASSWORD
     }
-  }))
-  : null;
+  }));
+}
 
 exports.send = async function(email, name) {
-  if (! smtp) {
-    return;
-  }
+  if (! smtp) return;
   await smtp.sendMail({
-    from: smtp.transporter.options.auth.user,
+    from: 'groma.istvandr@sdadms.hu',
     to: email,
+    bcc: 'groma.istvandr@sdadms.hu',
     subject: '💡 Innovációs ösztöndíj 2021 - Regisztráció',
     priority: 'high',
     html: `
@@ -55,3 +69,5 @@ exports.send = async function(email, name) {
 `.trim(),
   });
 };
+
+exports.send('groma.istvan@sdadms.hu', 'NAGY csapat!');
