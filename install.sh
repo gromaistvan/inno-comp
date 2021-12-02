@@ -68,7 +68,7 @@ function node {
   npm install npm@latest webpack@latest webpack-cli@latest -g --loglevel=error
 }
 
-function mongo {
+function mongodb {
   if [[ ! -f /usr/bin/mongo ]]; then
     figlet "mongo"
     if [[ ! -f /etc/apt/sources.list.d/mongodb-org-5.0.list ]]; then
@@ -91,7 +91,7 @@ function application {
   npm install --loglevel=error
   npm run build
   figlet "database"
-  MONGO="`mongo --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`"
+  MONGO=`mongo --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`
   echo "MONGO: $MONGO"
   if [[ "$MONGO" == *"|inno-comp|"* ]]; then
     echo "Found inno-comp database."
@@ -143,5 +143,5 @@ init
 download
 nginx
 node
-mongo
+mongodb
 application
