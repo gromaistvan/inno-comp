@@ -91,8 +91,7 @@ function application {
   npm install --loglevel=error
   npm run build
   figlet "database"
-  MONGO=`mongo --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`
-  echo "MONGO: $MONGO"
+  MONGO=`mongo --quiet --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`
   if [[ "$MONGO" == *"|inno-comp|"* ]]; then
     echo "Found inno-comp database."
   else
@@ -104,8 +103,8 @@ function application {
   npm install --loglevel=error
   npm run build
   popd
-  figlet "service"
   if [[ ! -f ./inno-comp.service ]]; then
+    figlet "service"
     [[ ! -z "$LOCAL_PORT" ]] || read -e -p "Back-end port: " -i 8080 LOCAL_PORT
     [[ ! -z "$SMTP_USER" ]] || read -e -p "Email user: " -i "@" SMTP_USER
     [[ ! -z "$SMTP_PASSWORD" ]] || read -e -p "Email password: " -s SMTP_PASSWORD
