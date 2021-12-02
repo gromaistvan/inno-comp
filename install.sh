@@ -17,6 +17,7 @@ function download {
     git stash
     git pull
     git stash drop
+    ./$(basename $0) $*
     exit
   fi
 }
@@ -90,7 +91,7 @@ function application {
   npm install --loglevel=error
   npm run build
   figlet "database"
-  MONGO=`mongo --quiet --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`
+  MONGO=`mongo --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`
   echo "MONGO: $MONGO"
   if [[ "$MONGO" == *"|inno-comp|"* ]]; then
     echo "Found inno-comp database."
