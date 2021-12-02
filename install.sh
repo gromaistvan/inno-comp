@@ -91,6 +91,7 @@ function application {
   npm run build
   figlet "database"
   DATABASE=$(mongo --quiet --eval "'|' + db.getMongo().getDBNames().join('|') + '|'")
+  echo $DATABASE
   if [[ "$DATABASE" == *"|inno-comp|"* ]]; then
     echo "Found inno-comp database."
   else
