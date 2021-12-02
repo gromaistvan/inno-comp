@@ -7,8 +7,8 @@ import { UnderConstruction } from '../shared/under.construction';
   templateUrl: './jury.component.html',
   styleUrls: ['./jury.component.css']
 })
-export class JuryComponent extends UnderConstruction implements OnInit {
-  readonly jury: Jury[];
+export class JuryComponent extends UnderConstruction {
+  readonly jury: Jury[] = [];
 
   constructor() {
     super();

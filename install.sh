@@ -13,7 +13,7 @@ function download {
   CHANGED=0
   git pull --dry-run 2>&1 | grep -q -v 'Already up-to-date.' && CHANGED=1
   if [[ $CHANGED == 1 ]]; then
-    figlet "Downloading"
+    figlet "downloading"
     git stash
     git pull
     git stash drop
@@ -53,7 +53,7 @@ eot
 }
 
 function node {
-  figlet "Node.js"
+  figlet "node.js"
   if [[ ! -f /usr/bin/node ]]; then
     if [[ ! -f node.sh ]]; then
       [[ -f /usr/bin/curl ]] || apt-get install -y curl
@@ -69,7 +69,7 @@ function node {
 
 function mongo {
   if [[ ! -f /usr/bin/mongo ]]; then
-    figlet "MongoDB"
+    figlet "mongo"
     if [[ ! -f /etc/apt/sources.list.d/mongodb-org-5.0.list ]]; then
       [[ -f /usr/bin/gpg ]] || apt-get install -y gnupg
       [[ -f /usr/bin/wget ]] || apt-get install -y wget
@@ -85,10 +85,11 @@ function mongo {
 }
 
 function application {
-  figlet "inno-comp"
   pushd back
+  figlet "back-end"
   npm install --loglevel=error
   npm run build
+  figlet "database"
   DATABASE=$(mongo --quiet --eval "'|' + db.getMongo().getDBNames().join('|') + '|'")
   if [[ "$DATABASE" == *"|inno-comp|"* ]]; then
     echo "Found inno-comp database."
@@ -97,9 +98,11 @@ function application {
   fi
   popd
   pushd front
+  figlet "front-end"
   npm install --loglevel=error
   npm run build
   popd
+  figlet "service"
   if [[ ! -f ./inno-comp.service ]]; then
     [[ ! -z "$LOCAL_PORT" ]] || read -e -p "Back-end port: " -i 8080 LOCAL_PORT
     [[ ! -z "$SMTP_USER" ]] || read -e -p "Email user: " -i "@" SMTP_USER
