@@ -91,7 +91,7 @@ function application {
   npm install --loglevel=error
   npm run build
   figlet "database"
-  MONGO=`mongo --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`
+  MONGO="`mongo --eval "'|' + db.getMongo().getDBNames().join('|') + '|'"`"
   echo "MONGO: $MONGO"
   if [[ "$MONGO" == *"|inno-comp|"* ]]; then
     echo "Found inno-comp database."
