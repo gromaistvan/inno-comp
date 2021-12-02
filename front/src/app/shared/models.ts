@@ -38,6 +38,6 @@ export const dates: {
   readonly signup: Date,
   readonly presentation: Date
 } = {
-  signup: new Date(2021, 11, 30),
-  presentation: new Date(2021, 12, 13)
+  signup: new Date('2021-11-30T00:00:00'),
+  presentation: new Date('2021-12-13T00:00:00')
 };
