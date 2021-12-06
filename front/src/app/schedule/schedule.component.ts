@@ -19,7 +19,7 @@ export class ScheduleComponent extends UnderConstruction implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       const applicants: Applicant[] = await this.http.get<Applicant[]>('/api/applicant').toPromise();
-      const baseTime = new Date(2020, 11, 14, 15, 0, 0);
+      const baseTime = new Date(2020, 11, 10, 15, 0, 0);
       let i = 0;
       for (const applicant of applicants) {
         applicant.presentationTime = new Date(baseTime.getTime() + i * 25 * 60 * 1000);
