@@ -25,7 +25,7 @@ export class JuryComponent {
       });
     this.jury.push(
       {
-        name: 'Mélykuti Balázs', email: '', phone: '+36209666569',
+        name: 'Mélykuti Balázs', email: 'melykuti.balazs@tfszzrt.hu', phone: '+36209666569',
         company: 'Qualysoft',
         introduction: 'Dr. Mélykuti Balázs a Qualysoft Holding informatikai cégcsoport nemzetközi üzletfejlesztésért felelős vezetője.'
       });
