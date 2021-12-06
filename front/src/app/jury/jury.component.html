@@ -1,4 +1,4 @@
-<p-card *ngFor="let member of jury" styleClass="p-m-4 highlighted">
+<p-card *ngFor="let member of jury" styleClass="m-4 highlighted">
   <ng-template pTemplate="body">
     <div class="p-card-title">
       {{member.name}}
@@ -11,6 +11,7 @@
         <img *ngSwitchCase="'Ericsson'" src="assets/ericsson.png" [alt]="member.company" [pTooltip]="member.company" tooltipPosition="top" class="logo" />
         <img *ngSwitchCase="'NPSH'" src="assets/npsh.png" [alt]="member.company" [pTooltip]="member.company" tooltipPosition="top" class="logo" />
         <img *ngSwitchCase="'eNET'" src="assets/enet.png" [alt]="member.company" [pTooltip]="member.company" tooltipPosition="top" class="logo" />
+        <img *ngSwitchCase="'Qualysoft'" src="assets/qualysoft.png" [alt]="member.company" [pTooltip]="member.company" tooltipPosition="top" class="logo" />
       </span>
       <br>
       {{member.introduction}}
