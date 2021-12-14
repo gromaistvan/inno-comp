@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom} from 'rxjs';
 import { Applicant } from '../shared/models';
 import { UnderConstruction } from '../shared/under.construction';
 
@@ -18,7 +19,7 @@ export class ScheduleComponent extends UnderConstruction implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      const applicants: Applicant[] = await this.http.get<Applicant[]>('/api/applicant').toPromise();
+      const applicants: Applicant[] = await firstValueFrom(this.http.get<Applicant[]>('/api/applicant'));
       const baseTime = new Date(2020, 11, 10, 15, 0, 0);
       let i = 0;
       for (const applicant of applicants) {
